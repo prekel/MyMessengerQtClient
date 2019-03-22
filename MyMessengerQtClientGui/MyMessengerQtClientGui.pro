@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT += network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -31,3 +32,15 @@ HEADERS += \
 
 FORMS += \
         mainwindow.ui
+
+unix|win32: LIBS += -L$$OUT_PWD/../MyMessengerQtClientCore/ -lMyMessengerQtClientCore
+INCLUDEPATH += $$PWD/../MyMessengerQtClientCore
+DEPENDPATH += $$PWD/../MyMessengerQtClientCore
+win32:!win32-g++: PRE_TARGETDEPS += $$OUT_PWD/../MyMessengerQtClientCore/MyMessengerQtClientCore.lib
+else:unix|win32-g++: PRE_TARGETDEPS += $$OUT_PWD/../MyMessengerQtClientCore/libMyMessengerQtClientCore.a
+
+unix|win32: LIBS += -L$$OUT_PWD/../MyMessengerQtClientTcp/ -lMyMessengerQtClientTcp
+INCLUDEPATH += $$PWD/../MyMessengerQtClientTcp
+DEPENDPATH += $$PWD/../MyMessengerQtClientTcp
+win32:!win32-g++: PRE_TARGETDEPS += $$OUT_PWD/../MyMessengerQtClientTcp/MyMessengerQtClientTcp.lib
+else:unix|win32-g++: PRE_TARGETDEPS += $$OUT_PWD/../MyMessengerQtClientTcp/libMyMessengerQtClientTcp.a

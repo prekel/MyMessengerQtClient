@@ -12,9 +12,19 @@ CONFIG += c++11
 SOURCES += \
         main.cpp
 
-win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../MyMessengerQtClientGui/ -lMyMessengerQtClientGui
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../MyMessengerQtClientGui/ -lMyMessengerQtClientGuid
-else:unix: LIBS += -L$$OUT_PWD/../MyMessengerQtClientGui/ -lMyMessengerQtClientGui
-
+unix|win32: LIBS += -L$$OUT_PWD/../MyMessengerQtClientGui/ -lMyMessengerQtClientGui
 INCLUDEPATH += $$PWD/../MyMessengerQtClientGui
 DEPENDPATH += $$PWD/../MyMessengerQtClientGui
+
+unix|win32: LIBS += -L$$OUT_PWD/../MyMessengerQtClientCore/ -lMyMessengerQtClientCore
+INCLUDEPATH += $$PWD/../MyMessengerQtClientCore
+DEPENDPATH += $$PWD/../MyMessengerQtClientCore
+win32:!win32-g++: PRE_TARGETDEPS += $$OUT_PWD/../MyMessengerQtClientCore/MyMessengerQtClientCore.lib
+else:unix|win32-g++: PRE_TARGETDEPS += $$OUT_PWD/../MyMessengerQtClientCore/libMyMessengerQtClientCore.a
+
+
+unix|win32: LIBS += -L$$OUT_PWD/../MyMessengerQtClientTcp/ -lMyMessengerQtClientTcp
+INCLUDEPATH += $$PWD/../MyMessengerQtClientTcp
+DEPENDPATH += $$PWD/../MyMessengerQtClientTcp
+win32:!win32-g++: PRE_TARGETDEPS += $$OUT_PWD/../MyMessengerQtClientTcp/MyMessengerQtClientTcp.lib
+else:unix|win32-g++: PRE_TARGETDEPS += $$OUT_PWD/../MyMessengerQtClientTcp/libMyMessengerQtClientTcp.a

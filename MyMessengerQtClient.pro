@@ -1,7 +1,7 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    MyMessengerQtClientGui \
-    MyMessengerQtClient \
     MyMessengerQtClientCore \
-    MyMessengerQtClientTcp
+    MyMessengerQtClientTcp \
+    MyMessengerQtClientGui \
+    MyMessengerQtClient

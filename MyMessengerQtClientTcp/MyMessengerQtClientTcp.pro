@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       -= gui
+QT += network
 
 TARGET = MyMessengerQtClientTcp
 TEMPLATE = lib
@@ -22,11 +23,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        mymessengerqtclienttcp.cpp
+        mymessengerqtclienttcp.cpp \
+    tcpclient.cpp
 
 HEADERS += \
-        mymessengerqtclienttcp.h
+        mymessengerqtclienttcp.h \
+    tcpclient.h
 unix {
     target.path = /usr/lib
     INSTALLS += target
 }
+
+unix|win32: LIBS += -L$$OUT_PWD/../MyMessengerQtClientCore/ -lMyMessengerQtClientCore
+INCLUDEPATH += $$PWD/../MyMessengerQtClientCore
+DEPENDPATH += $$PWD/../MyMessengerQtClientCore
+win32:!win32-g++: PRE_TARGETDEPS += $$OUT_PWD/../MyMessengerQtClientCore/MyMessengerQtClientCore.lib
+else:unix|win32-g++: PRE_TARGETDEPS += $$OUT_PWD/../MyMessengerQtClientCore/libMyMessengerQtClientCore.a
