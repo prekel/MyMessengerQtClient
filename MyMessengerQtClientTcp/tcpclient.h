@@ -12,6 +12,7 @@ public:
 	~TcpClient();
 
 	void Connect(QString host, qint16 port);
+	void Sample();
 };
 
 #endif // TCPCLIENT_H

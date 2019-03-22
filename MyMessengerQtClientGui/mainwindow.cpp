@@ -18,5 +18,6 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_clicked()
 {
 	auto client = TcpClient();
-	client.Start();
+	client.Connect("51.158.73.185", 20522);
+	client.Sample();
 }
