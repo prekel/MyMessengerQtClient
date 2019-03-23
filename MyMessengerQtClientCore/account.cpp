@@ -10,13 +10,13 @@ Account::Account()
 void Account::read(const QJsonObject &json)
 {
 	AccountId = json["AccountId"].toInt();
-	//RegistrationDateTime = json["RegistrationDateTime"];
-	//LoginDateTime = json["LoginDateTime"];
+	RegistrationDateTime = QDateTime::fromString(json["RegistrationDateTime"].toString());
+	LoginDateTime = QDateTime::fromString(json["LoginDateTime"].toString());
 }
 
 void Account::write(QJsonObject &json) const
 {
 	json["AccountId"] = AccountId;
-	json["RegistrationDateTime"] = RegistrationDateTime.toString(Qt::ISODate);
-	json["LoginDateTime"] = LoginDateTime.toString(Qt::ISODate);
+	json["RegistrationDateTime"] = RegistrationDateTime.toOffsetFromUtc(QDateTime::currentDateTime().offsetFromUtc()).toString(Qt::ISODate);
+	json["LoginDateTime"] = LoginDateTime.toOffsetFromUtc(QDateTime::currentDateTime().offsetFromUtc()).toString(Qt::ISODate);
 }

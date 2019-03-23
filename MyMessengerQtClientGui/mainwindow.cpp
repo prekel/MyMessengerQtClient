@@ -36,6 +36,9 @@ QString ToJson(const Account a)
 
 	QString s(doc.toJson(QJsonDocument::Compact));
 
+	auto a1 = Account();
+	a1.read(ob);
+
 	return s;
 }
 void MainWindow::on_pushButton_2_clicked()
@@ -45,4 +48,6 @@ void MainWindow::on_pushButton_2_clicked()
 	auto s = ToJson(a);
 
 	qDebug() << s;
+
+	auto a1 = Account();
 }
