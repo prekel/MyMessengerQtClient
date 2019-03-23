@@ -29,8 +29,7 @@ HEADERS += \
         mymessengerqtclientcore.h \
     responsecode.h \
     commandname.h \
-    account.h \
-    ijsonserializable.h
+    account.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

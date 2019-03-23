@@ -35,7 +35,9 @@ unix {
 }
 
 unix|win32: LIBS += -L$$OUT_PWD/../MyMessengerQtClientCore/ -lMyMessengerQtClientCore
+
 INCLUDEPATH += $$PWD/../MyMessengerQtClientCore
 DEPENDPATH += $$PWD/../MyMessengerQtClientCore
+
 win32:!win32-g++: PRE_TARGETDEPS += $$OUT_PWD/../MyMessengerQtClientCore/MyMessengerQtClientCore.lib
 else:unix|win32-g++: PRE_TARGETDEPS += $$OUT_PWD/../MyMessengerQtClientCore/libMyMessengerQtClientCore.a
