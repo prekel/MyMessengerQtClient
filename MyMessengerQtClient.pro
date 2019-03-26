@@ -1,10 +1,10 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    MyMessengerQtClientCore \
-    MyMessengerQtClientTcp \
+    MyMessengerQtClient \
     MyMessengerQtClientGui \
-    MyMessengerQtClient
+    MyMessengerQtClientTcp \
+    MyMessengerQtClientCore
 
 MyMessengerQtClient.depends = MyMessengerQtClientGui MyMessengerQtClientTcp MyMessengerQtClientCore
 MyMessengerQtClientGui.depends = MyMessengerQtClientTcp MyMessengerQtClientCore

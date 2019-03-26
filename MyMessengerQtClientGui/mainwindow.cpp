@@ -34,7 +34,7 @@ QString ToJson(const Account a)
 
 	QJsonDocument doc(ob);
 
-	QString s(doc.toJson(QJsonDocument::Compact));
+	QString s(doc.toJson(QJsonDocument::Indented));
 
 	auto a1 = Account();
 	a1.read(ob);

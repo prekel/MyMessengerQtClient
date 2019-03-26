@@ -4,8 +4,6 @@
 #include <QJsonObject>
 #include <QDateTime>
 
-#include "ijsonserializable.h"
-
 class Account
 {
 public:
