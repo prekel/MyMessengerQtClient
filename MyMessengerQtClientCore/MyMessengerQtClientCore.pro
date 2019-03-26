@@ -13,14 +13,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     mymessengerqtclientcore.cpp \
     account.cpp \
-    Iso8601Time.cpp
+    Iso8601Time.cpp \
+    GetAccountByiIdResponse.cpp
 
 HEADERS += \
     mymessengerqtclientcore.h \
     responsecode.h \
     commandname.h \
     account.h \
-    Iso8601Time.h
+    Iso8601Time.h \
+    GetAccountByiIdResponse.h
 
 unix {
     target.path = /usr/lib

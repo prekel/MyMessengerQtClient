@@ -4,6 +4,8 @@
 #include <QJsonObject>
 #include <QDateTime>
 
+#include "Iso8601Time.h"
+
 class Account
 {
 public:
@@ -13,8 +15,8 @@ public:
 	void write(QJsonObject &json) const;
 private:
 	int AccountId;
-	QDateTime RegistrationDateTime;
-	QDateTime LoginDateTime;
+	Iso8601Time *RegistrationDateTime;
+	Iso8601Time *LoginDateTime;
 	QString Nickname;
 	//QVector<int> DialogsIds;
 };
