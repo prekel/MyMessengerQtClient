@@ -13,7 +13,8 @@ QT -= gui
 
 HEADERS += \
         tst_testcase1.h \
-    Iso8601TimeTests.h
+    Iso8601TimeTests.h \
+    AccountTests.h
 
 SOURCES += \
         main.cpp

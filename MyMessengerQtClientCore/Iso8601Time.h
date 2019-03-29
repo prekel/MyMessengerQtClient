@@ -8,21 +8,21 @@
 class Iso8601Time
 {
 public:
-	Iso8601Time(QString time);
-	Iso8601Time(QString time, int OffsetFromUtc);
-
-	Iso8601Time(QDateTime time);
-	Iso8601Time(QDateTime time, int OffsetFromUtc);
-
+	Iso8601Time();
 	Iso8601Time(Iso8601Time &time);
 	~Iso8601Time();
 
 	QString ToString();
-	//static Iso8601Time FromString(QString time);
+	QString ToString(int OffsetFromUtcSeconds);
 
 	QDateTime GetQDateTime();
 	int GetOffsetFromUtcSeconds();
 	void SetOffsetFromUtcSeconds(int offset);
+
+	static Iso8601Time FromString(QString time);
+	static Iso8601Time FromString(QString time, int OffsetFromUtc);
+	static Iso8601Time FromQDateTime(QDateTime time);
+	static Iso8601Time FromQDateTime(QDateTime time, int OffsetFromUtc);
 private:
 	int m_OffsetFromUtcSeconds;
 	QDateTime *m_inner;
