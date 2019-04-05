@@ -71,3 +71,6 @@ release
 .qmake.stash
 *.vcxproj.filters
 *.vcxproj.user
+
+*.sln
+*.vcxproj

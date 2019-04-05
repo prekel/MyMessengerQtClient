@@ -36,18 +36,36 @@ QString ToJson(const Account a)
 
 	QString s(doc.toJson(QJsonDocument::Indented));
 
-	auto a1 = Account();
+	//auto a1 = Account();
+	Account a1;
 	a1.read(ob);
 
 	return s;
 }
+
+Account FromJson(QString s)
+{
+	Account a; 
+	QJsonDocument doc = QJsonDocument::fromJson(s.toUtf8());
+	a.read(doc.object());
+	return a;
+}
+
 void MainWindow::on_pushButton_2_clicked()
 {
-	auto a = Account();
+	Account a;
+	a.SetAccountId(4);
+	a.SetRegistrationDateTime(QDateTime::currentDateTime());
+	a.SetLoginDateTime(QDateTime::currentDateTime().addDays(2));
+	a.DialogsIds.append(2);
+	a.DialogsIds.append(3);
+	a.SetNickname("User1");
 
 	auto s = ToJson(a);
 
 	qDebug() << s;
 
-	auto a1 = Account();
+	Account b = FromJson(s);
+
+	//auto a1 = Account();
 }

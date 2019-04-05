@@ -2,6 +2,8 @@
 #define TCPCLIENT_H
 
 #include <QTcpSocket>
+#include <GetAccountByIdQuery.h>
+#include <QJsonDocument>
 
 class TcpClient
 {

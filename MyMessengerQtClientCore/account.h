@@ -3,6 +3,8 @@
 
 #include <QJsonObject>
 #include <QDateTime>
+#include <QVector>
+#include <QJsonArray>
 
 #include "Iso8601Time.h"
 
@@ -15,19 +17,31 @@ public:
 	int GetAccountId();
 	void SetNickname(QString name);
 	QString GetNickname();
-	void SetRegistrationDateTime(Iso8601Time date);
-	Iso8601Time GetRegistrationDateTime();
-	void SetLoginDateTime(Iso8601Time date);
-	Iso8601Time GetLoginDateTime();
+
+	void SetRegistrationDateTime(QDateTime date);
+	QDateTime GetRegistrationDateTime();
+	void SetLoginDateTime(QDateTime date);
+	QDateTime GetLoginDateTime();
+
+	//void SetDialogsIds(QVector<int> v);
+	QVector<int> GetDialogsIds();
+
+	//void SetRegistrationDateTime(Iso8601Time date);
+	//Iso8601Time GetRegistrationDateTime();
+	//void SetLoginDateTime(Iso8601Time date);
+	//Iso8601Time GetLoginDateTime();
 
 	void read(const QJsonObject &json);
 	void write(QJsonObject &json) const;
+
+	QVector<int> DialogsIds;
 private:
 	int AccountId;
-	QString RegistrationDateTime;
-	QString LoginDateTime;
+	QDateTime RegistrationDateTime;
+	QDateTime LoginDateTime;
 	QString Nickname;
-	//QVector<int> DialogsIds;
+
+	//Iso8601Time DateTime;
 };
 
 #endif // ACCOUNT_H

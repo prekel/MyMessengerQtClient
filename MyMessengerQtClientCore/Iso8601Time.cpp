@@ -1,6 +1,6 @@
 #include "Iso8601Time.h"
 
-Iso8601Time Iso8601Time()
+Iso8601Time::Iso8601Time()
 {
 }
 
@@ -10,34 +10,34 @@ Iso8601Time::Iso8601Time(Iso8601Time &time)
 	m_OffsetFromUtcSeconds = time.m_OffsetFromUtcSeconds;
 }
 
-Iso8601Time Iso8601Time::FromString(QString time)
+class Iso8601Time Iso8601Time::FromString(QString time)
 {
 	Iso8601Time t;
-	t.m_inner = QDateTime::fromString(time, Qt::DateFormat::ISODate);
+	t.m_inner = new QDateTime(QDateTime::fromString(time, Qt::DateFormat::ISODate));
 	t.m_OffsetFromUtcSeconds = QDateTime::currentDateTime().offsetFromUtc();
 	return t;
 }
 
-Iso8601Time Iso8601Time::FromString(QString time, int OffsetFromUtc)
+class Iso8601Time Iso8601Time::FromString(QString time, int OffsetFromUtc)
 {
 	Iso8601Time t;
-	t.m_inner = QDateTime::fromString(time, Qt::DateFormat::ISODate);
+	t.m_inner = new QDateTime(QDateTime::fromString(time, Qt::DateFormat::ISODate));
 	t.m_OffsetFromUtcSeconds = OffsetFromUtc;
 	return t;
 }
 
-Iso8601Time Iso8601Time::FromQDateTime(QDateTime time)
+class Iso8601Time Iso8601Time::FromQDateTime(QDateTime time)
 {
 	Iso8601Time t;
-	t.m_inner = time;
+	t.m_inner = new QDateTime(time);
 	t.m_OffsetFromUtcSeconds = QDateTime::currentDateTime().offsetFromUtc();
 	return t;
 }
 
-Iso8601Time Iso8601Time::FromQDateTime(QDateTime time, int OffsetFromUtc)
+class Iso8601Time Iso8601Time::FromQDateTime(QDateTime time, int OffsetFromUtc)
 {
 	Iso8601Time t;
-	t.m_inner = time;
+	t.m_inner = new QDateTime(time);
 	t.m_OffsetFromUtcSeconds = OffsetFromUtc;
 	return t;
 }
@@ -64,11 +64,11 @@ QString Iso8601Time::ToString(int OffsetFromUtcSeconds)
 //	return nullptr;
 //}
 
-Iso8601Time Iso8601Time::FromQDateTime(QDateTime time)
-{
-	Iso8601Time a(time);
-	return a;
-}
+//class Iso8601Time Iso8601Time::FromQDateTime(QDateTime time)
+//{
+//	Iso8601Time a(time);
+//	return a;
+//}
 
 QDateTime Iso8601Time::GetQDateTime()
 {
