@@ -12,7 +12,7 @@ public:
 	GetAccountByIdParameters() = default;
 
 public:
-	int Token;
+	QString Token;
 	int AccountId;
 
 	void read(const QJsonObject& json) override;

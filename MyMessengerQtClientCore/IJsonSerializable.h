@@ -16,6 +16,9 @@ public:
 	virtual void write(QJsonObject& json) const = 0;
 
 	QString ToJsonString(QJsonDocument::JsonFormat format = QJsonDocument::Indented);
+	//static IJsonSerializable FromJsonString();
+
+	void FromJsonString(QString s);
 };
 
 #endif // IJSONSERIALIZABLE_H

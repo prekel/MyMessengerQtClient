@@ -64,3 +64,31 @@ void TcpClient::Sample()
 		qDebug() << "Not connected!";
 	}
 }
+
+QString TcpClient::Sample1(QString input)
+{
+	if (m_socket->waitForConnected(5000))
+	{
+		qDebug() << "Connected123!";
+
+		m_socket->write(input.toUtf8());
+		m_socket->waitForBytesWritten(1000);
+		m_socket->waitForReadyRead(3000);
+
+		qDebug() << "Reading: " << m_socket->bytesAvailable();
+
+		// get the data
+		auto output = m_socket->readAll();
+		//qDebug() << ;
+
+		// close the connection
+		m_socket->close();
+
+		return QString::fromUtf8(output);
+	}
+	else
+	{
+		qDebug() << "Not connected!";
+		return "";
+	}
+}

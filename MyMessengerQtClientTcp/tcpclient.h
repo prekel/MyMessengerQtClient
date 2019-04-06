@@ -2,7 +2,7 @@
 #define TCPCLIENT_H
 
 #include <QTcpSocket>
-#include <GetAccountByIdQuery.h>
+//#include <GetAccountByIdQuery.h>
 #include <QJsonDocument>
 
 class TcpClient
@@ -15,6 +15,7 @@ public:
 
 	void Connect(QString host, qint16 port);
 	void Sample();
+	QString Sample1(QString input);
 };
 
 #endif // TCPCLIENT_H

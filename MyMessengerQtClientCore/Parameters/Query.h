@@ -8,15 +8,16 @@
 #include "AbstractParameters.h"
 #include "LoginParameters.h"
 #include "GetAccountByIdParameters.h"
+#include "IJsonSerializable.h"
 
-class Query
+class Query : public IJsonSerializable
 {
 public:
 	Query() = default;
 	AbstractParameters* Config;
 
-	void read(const QJsonObject& json);
-	void write(QJsonObject& json) const;
+	void read(const QJsonObject& json) override;
+	void write(QJsonObject& json) const override;
 };
 
 #endif // QUERY_H

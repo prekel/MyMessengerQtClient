@@ -6,9 +6,10 @@
 #include <QVector>
 #include <QJsonArray>
 
+#include "IJsonSerializable.h"
 #include "Iso8601Time.h"
 
-class Account
+class Account : public IJsonSerializable
 {
 public:
 	Account();
@@ -26,8 +27,8 @@ public:
 	//void SetDialogsIds(QVector<int> v);
 	//QVector<int> GetDialogsIds();
 
-	void read(const QJsonObject &json);
-	void write(QJsonObject &json) const;
+	void read(const QJsonObject &json) override;
+	void write(QJsonObject &json) const override;
 
 	QVector<int> DialogsIds;
 //private:

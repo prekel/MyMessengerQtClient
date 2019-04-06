@@ -11,8 +11,8 @@
 void GetAccountByIdParameters::read(const QJsonObject& json)
 {
 	CommandName = static_cast<CommandType>(json["CommandName"].toInt());
-	Token = json["Token"].toInt();
-	Token = json["AccountId"].toInt();
+	Token = json["Token"].toString();
+	AccountId = json["AccountId"].toInt();
 }
 
 void GetAccountByIdParameters::write(QJsonObject& json) const

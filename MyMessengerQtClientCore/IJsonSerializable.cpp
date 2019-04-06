@@ -11,3 +11,9 @@ QString IJsonSerializable::ToJsonString(QJsonDocument::JsonFormat format)
 
 	return s;
 }
+
+void IJsonSerializable::FromJsonString(QString s)
+{
+	QJsonDocument doc = QJsonDocument::fromJson(s.toUtf8());
+	read(doc.object());
+}
