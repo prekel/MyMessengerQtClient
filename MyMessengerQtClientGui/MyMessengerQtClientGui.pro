@@ -12,13 +12,13 @@ CONFIG += c++14
 DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
-    mainwindow.cpp
+    *.cpp
 
 HEADERS += \
-    mainwindow.h
+    *.h
 
 FORMS += \
-    mainwindow.ui
+    *.ui
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../MyMessengerQtClientCore/release/ -lMyMessengerQtClientCore
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../MyMessengerQtClientCore/debug/ -lMyMessengerQtClientCore

@@ -12,12 +12,10 @@ CONFIG += c++14
 DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
-    mymessengerqtclienttcp.cpp \
-    tcpclient.cpp
+    *.cpp
 
 HEADERS += \
-    mymessengerqtclienttcp.h \
-    tcpclient.h
+    *.h
 
 unix {
     target.path = /usr/lib

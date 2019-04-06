@@ -12,12 +12,10 @@ QT += core
 QT -= gui
 
 HEADERS += \
-        tst_testcase1.h \
-    Iso8601TimeTests.h \
-    AccountTests.h
+    *.h
 
 SOURCES += \
-        main.cpp
+    *.cpp
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../MyMessengerQtClientCore/release/ -lMyMessengerQtClientCore
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../MyMessengerQtClientCore/debug/ -lMyMessengerQtClientCore

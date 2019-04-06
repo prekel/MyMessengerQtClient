@@ -74,3 +74,4 @@ release
 
 *.sln
 *.vcxproj
+/*.DotSettings.user
