@@ -10,6 +10,8 @@
 #include <Parameters/GetAccountByIdParameters.h>
 #include <Responses/GetAccountByIdResponse.h>
 
+#include "../QJsonModel/qjsonmodel.h"
+
 #include <IJsonSerializable.h>
 
 #include "mainwindow.h"
@@ -95,7 +97,7 @@ void MainWindow::on_pushButton_login_clicked()
 	LoginResponse lresp;
 	lresp.FromJsonString(resp);
 
-	ui->label_token->setText(lresp.Token);
+	ui->lineEdit_token->setText(lresp.Token);
 }
 
 void MainWindow::on_pushButton_gabid_clicked()
@@ -104,7 +106,7 @@ void MainWindow::on_pushButton_gabid_clicked()
 	client.Connect("51.158.73.185", 20522);
 	GetAccountByIdParameters p;
 	p.AccountId = ui->lineEdit_accountid->text().toInt();
-	p.Token = ui->label_token->text();
+	p.Token = ui->lineEdit_token->text();
 	p.CommandName = CommandType::GetAccountById;
 	Query q;
 	q.Config = &p;
@@ -115,5 +117,9 @@ void MainWindow::on_pushButton_gabid_clicked()
 	GetAccountByIdResponse lresp;
 	lresp.FromJsonString(resp);
 
-	//ui->label_token->setText(lresp.Token);
+	auto model = new QJsonModel();
+
+	ui->treeView->setModel(model);
+
+	model->loadJson(resp.toUtf8());
 }

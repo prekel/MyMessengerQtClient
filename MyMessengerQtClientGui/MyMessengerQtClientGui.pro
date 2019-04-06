@@ -12,10 +12,12 @@ CONFIG += c++14
 DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
-    mainwindow.cpp
+    mainwindow.cpp \
+    ../QJsonModel/qjsonmodel.cpp
 
 HEADERS += \
-    mainwindow.h
+    mainwindow.h \
+    ../QJsonModel/qjsonmodel.h
 
 FORMS += \
     mainwindow.ui
