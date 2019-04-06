@@ -2,7 +2,7 @@
 #include <QString>
 
 #include <tcpclient.h>
-#include <account.h>
+#include <Account.h>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"

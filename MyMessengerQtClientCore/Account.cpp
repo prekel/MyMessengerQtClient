@@ -1,4 +1,4 @@
-#include "account.h"
+#include "Account.h"
 
 Account::Account()
 {
@@ -35,53 +35,54 @@ void Account::write(QJsonObject& json) const
 	json["DialogsIds"] = ar;
 }
 
-void Account::SetAccountId(int id)
-{
-	AccountId = id;
-}
-
-int Account::GetAccountId()
-{
-	return AccountId;
-}
-
-void Account::SetNickname(QString name)
-{
-	Nickname = name;
-}
-
-QString Account::GetNickname()
-{
-	return Nickname;
-}
-
-
-void Account::SetRegistrationDateTime(QDateTime date)
-{
-	RegistrationDateTime = date;
-}
-
-QDateTime Account::GetRegistrationDateTime()
-{
-	return RegistrationDateTime;
-}
-
-void Account::SetLoginDateTime(QDateTime date)
-{
-	LoginDateTime = date;
-}
-
-QDateTime Account::GetLoginDateTime()
-{
-	return LoginDateTime;
-}
-
-//void Account::SetDialogsIds(QVector<int> v)
+//void Account::SetAccountId(int id)
 //{
-//	DialogsIds = v;
+//	AccountId = id;
 //}
 
-QVector<int> Account::GetDialogsIds()
-{
-	return DialogsIds;
-}
+//int Account::GetAccountId()
+//{
+//	return AccountId;
+//}
+
+//void Account::SetNickname(QString name)
+//{
+//	Nickname = name;
+//}
+
+//QString Account::GetNickname()
+//{
+//	return Nickname;
+//}
+
+
+//void Account::SetRegistrationDateTime(QDateTime date)
+//{
+//	RegistrationDateTime = date;
+//}
+
+//QDateTime Account::GetRegistrationDateTime()
+//{
+//	return RegistrationDateTime;
+//}
+
+//void Account::SetLoginDateTime(QDateTime date)
+//{
+//	LoginDateTime = date;
+//}
+
+//QDateTime Account::GetLoginDateTime()
+//{
+//	return LoginDateTime;
+//}
+
+////void Account::SetDialogsIds(QVector<int> v)
+////{
+////	DialogsIds = v;
+////}
+
+//QVector<int> Account::GetDialogsIds()
+//{
+//	return DialogsIds;
+//}
+

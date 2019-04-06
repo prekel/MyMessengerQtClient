@@ -1,21 +1,21 @@
-#include "GetAccountByIdQuery.h"
+#include "GetAccountByIdParameters.h"
 
-GetAccountByIdQuery::GetAccountByIdQuery()
-{
-}
+//GetAccountByIdParameters::GetAccountByIdParameters()
+//{
+//}
 
-GetAccountByIdQuery::~GetAccountByIdQuery()
-{
-}
+//GetAccountByIdParameters::~GetAccountByIdParameters()
+//{
+//}
 
-void GetAccountByIdQuery::read(const QJsonObject& json)
+void GetAccountByIdParameters::read(const QJsonObject& json)
 {
 	CommandName = static_cast<CommandType>(json["Config"]["CommandName"].toInt());
 	Token = json["Config"]["Token"].toInt();
 	Token = json["AccountId"]["AccountId"].toInt();
 }
 
-void GetAccountByIdQuery::write(QJsonObject& json) const
+void GetAccountByIdParameters::write(QJsonObject& json) const
 {
 	QJsonObject config;
 	config["CommandName"] = CommandName;
