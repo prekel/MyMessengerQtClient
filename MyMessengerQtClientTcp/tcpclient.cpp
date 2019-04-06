@@ -69,7 +69,7 @@ QString TcpClient::Sample1(QString input)
 {
 	if (m_socket->waitForConnected(5000))
 	{
-		qDebug() << "Connected123!";
+		qDebug() << "Connected!";
 
 		m_socket->write(input.toUtf8());
 		m_socket->waitForBytesWritten(1000);

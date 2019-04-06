@@ -10,8 +10,6 @@
 #include <Parameters/GetAccountByIdParameters.h>
 #include <Responses/GetAccountByIdResponse.h>
 
-#include "../QJsonModel/qjsonmodel.h"
-
 #include <IJsonSerializable.h>
 
 #include "mainwindow.h"
@@ -37,29 +35,29 @@ void MainWindow::on_pushButton_clicked()
 }
 
 
-QString ToJson(const Account a)
-{
-	QJsonObject ob;
-	a.write(ob);
-
-	QJsonDocument doc(ob);
-
-	QString s(doc.toJson(QJsonDocument::Indented));
-
-	//auto a1 = Account();
-	Account a1;
-	a1.read(ob);
-
-	return s;
-}
-
-Account FromJson(QString s)
-{
-	Account a; 
-	QJsonDocument doc = QJsonDocument::fromJson(s.toUtf8());
-	a.read(doc.object());
-	return a;
-}
+//QString ToJson(const Account a)
+//{
+//	QJsonObject ob;
+//	a.write(ob);
+//
+//	QJsonDocument doc(ob);
+//
+//	QString s(doc.toJson(QJsonDocument::Indented));
+//
+//	//auto a1 = Account();
+//	Account a1;
+//	a1.read(ob);
+//
+//	return s;
+//}
+//
+//Account FromJson(QString s)
+//{
+//	Account a; 
+//	QJsonDocument doc = QJsonDocument::fromJson(s.toUtf8());
+//	a.read(doc.object());
+//	return a;
+//}
 
 void MainWindow::on_pushButton_2_clicked()
 {
@@ -83,7 +81,8 @@ void MainWindow::on_pushButton_2_clicked()
 void MainWindow::on_pushButton_login_clicked()
 {
 	auto client = TcpClient();
-	client.Connect("51.158.73.185", 20522);
+	client.Connect(ui->lineEdit_serverip->text(), ui->lineEdit_serverport->text().toInt());
+
 	LoginParameters p;
 	p.Nickname = ui->lineEdit_login->text();
 	p.Password = ui->lineEdit_password->text();
@@ -98,12 +97,18 @@ void MainWindow::on_pushButton_login_clicked()
 	lresp.FromJsonString(resp);
 
 	ui->lineEdit_token->setText(lresp.Token);
+
+	delete m_JsonModel;
+	m_JsonModel = new QJsonModel();
+	ui->treeView->setModel(m_JsonModel);
+	m_JsonModel->loadJson(resp.toUtf8());
 }
 
 void MainWindow::on_pushButton_gabid_clicked()
 {
 	auto client = TcpClient();
-	client.Connect("51.158.73.185", 20522);
+	client.Connect(ui->lineEdit_serverip->text(), ui->lineEdit_serverport->text().toInt());
+
 	GetAccountByIdParameters p;
 	p.AccountId = ui->lineEdit_accountid->text().toInt();
 	p.Token = ui->lineEdit_token->text();
@@ -111,15 +116,14 @@ void MainWindow::on_pushButton_gabid_clicked()
 	Query q;
 	q.Config = &p;
 
-	auto s1 = q.ToJsonString();
-	auto resp = client.Sample1(s1);
+	auto query = q.ToJsonString();
+	auto resp = client.Sample1(query);
 
 	GetAccountByIdResponse lresp;
 	lresp.FromJsonString(resp);
 
-	auto model = new QJsonModel();
-
-	ui->treeView->setModel(model);
-
-	model->loadJson(resp.toUtf8());
+	delete m_JsonModel;
+	m_JsonModel = new QJsonModel();
+	ui->treeView->setModel(m_JsonModel);
+	m_JsonModel->loadJson(resp.toUtf8());
 }

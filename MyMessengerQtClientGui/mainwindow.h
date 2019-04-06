@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include "../QJsonModel/qjsonmodel.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -26,6 +28,8 @@ private slots:
 
 private:
 	Ui::MainWindow *ui;
+
+	QJsonModel* m_JsonModel;
 };
 
 #endif // MAINWINDOW_H
