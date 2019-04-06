@@ -23,7 +23,8 @@ HEADERS += \
     Account.h \
     Responses/GetAccountByIdResponse.h \
     Responses/AbstractResponse.h \
-    Responses/LoginResponse.h
+    Responses/LoginResponse.h \
+    IJsonSerializable.h
 
 SOURCES += \
     Iso8601Time.cpp \
@@ -35,7 +36,8 @@ SOURCES += \
     Account.cpp \
     Responses/GetAccountByIdResponse.cpp \
     Responses/AbstractResponse.cpp \
-    Responses/LoginResponse.cpp
+    Responses/LoginResponse.cpp \
+    IJsonSerializable.cpp
 
 unix {
     target.path = /usr/lib

@@ -3,9 +3,10 @@
 #include <QJsonObject>
 #include <QJsonArray>
 
+#include "IJsonSerializable.h"
 #include "ResponseCode.h"
 
-class AbstractResponse
+class AbstractResponse : public IJsonSerializable
 {
 public:
 	AbstractResponse() = default;
@@ -13,6 +14,6 @@ public:
 
 	ResponseCode Code;
 
-	virtual void read(const QJsonObject& json) = 0;
-	virtual void write(QJsonObject& json) const = 0;
+	//virtual void read(const QJsonObject& json) = 0;
+	//virtual void write(QJsonObject& json) const = 0;
 };

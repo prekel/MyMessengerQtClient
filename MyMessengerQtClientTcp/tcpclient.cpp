@@ -16,29 +16,29 @@ void TcpClient::Connect(QString host, qint16 port)
 	m_socket->connectToHost(host, port);
 }
 
-QString ToJson(const GetAccountByIdQuery a)
-{
-	QJsonObject ob;
-	a.write(ob);
+//QString ToJson(const GetAccountByIdQuery a)
+//{
+//	QJsonObject ob;
+//	a.write(ob);
 
-	QJsonDocument doc(ob);
+//	QJsonDocument doc(ob);
 
-	QString s(doc.toJson(QJsonDocument::Indented));
+//	QString s(doc.toJson(QJsonDocument::Indented));
 
-	//auto a1 = Account();
-	GetAccountByIdQuery a1;
-	a1.read(ob);
+//	//auto a1 = Account();
+//	GetAccountByIdQuery a1;
+//	a1.read(ob);
 
-	return s;
-}
+//	return s;
+//}
 
 void TcpClient::Sample()
 {
-	auto q = GetAccountByIdQuery();
-	q.AccountId = 2;
-	q.Token = 7881;
-	q.CommandName = CommandType::GetAccountById;
-	auto s = ToJson(q);
+	//auto q = GetAccountByIdQuery();
+	//q.AccountId = 2;
+	//q.Token = 7881;
+	//q.CommandName = CommandType::GetAccountById;
+	//auto s = ToJson(q);
 
 	if (m_socket->waitForConnected(5000))
 	{
@@ -46,7 +46,7 @@ void TcpClient::Sample()
 
 		// send
 		//m_socket->write("Hello server\r\n\r\n");
-		m_socket->write(s.toUtf8());
+		m_socket->write("s.toUtf8()");
 		//m_socket->write();
 		m_socket->waitForBytesWritten(1000);
 		m_socket->waitForReadyRead(3000);

@@ -4,9 +4,10 @@
 #include <QJsonObject>
 #include <QJsonArray>
 
+#include "IJsonSerializable.h"
 #include "CommandType.h"
 
-class AbstractParameters
+class AbstractParameters : public IJsonSerializable
 {
 public:
 	AbstractParameters() = default;
@@ -14,8 +15,8 @@ public:
 
 	CommandType CommandName;
 
-	virtual void read(const QJsonObject& json) = 0;
-	virtual void write(QJsonObject& json) const = 0;
+	//virtual void read(const QJsonObject& json) = 0;
+	//virtual void write(QJsonObject& json) const = 0;
 };
 
 #endif // ABSTRACTPARAMETERS_H
