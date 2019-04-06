@@ -4,7 +4,10 @@
 #include <QJsonObject>
 #include <QJsonArray>
 
+#include "CommandType.h"
 #include "AbstractParameters.h"
+#include "LoginParameters.h"
+#include "GetAccountByIdParameters.h"
 
 class Query
 {

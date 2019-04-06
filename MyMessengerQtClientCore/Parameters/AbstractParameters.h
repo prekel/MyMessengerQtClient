@@ -4,7 +4,7 @@
 #include <QJsonObject>
 #include <QJsonArray>
 
-#include "Parameters/CommandType.h"
+#include "CommandType.h"
 
 class AbstractParameters
 {

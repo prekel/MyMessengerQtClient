@@ -10,16 +10,14 @@
 
 void GetAccountByIdParameters::read(const QJsonObject& json)
 {
-	CommandName = static_cast<CommandType>(json["Config"]["CommandName"].toInt());
-	Token = json["Config"]["Token"].toInt();
-	Token = json["AccountId"]["AccountId"].toInt();
+	CommandName = static_cast<CommandType>(json["CommandName"].toInt());
+	Token = json["Token"].toInt();
+	Token = json["AccountId"].toInt();
 }
 
 void GetAccountByIdParameters::write(QJsonObject& json) const
 {
-	QJsonObject config;
-	config["CommandName"] = CommandName;
-	config["Token"] = Token;
-	config["AccountId"] = AccountId;
-	json["Config"] = config;
+	json["CommandName"] = CommandName;
+	json["Token"] = Token;
+	json["AccountId"] = AccountId;
 }

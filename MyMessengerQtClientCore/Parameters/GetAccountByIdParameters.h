@@ -3,13 +3,13 @@
 #include <QJsonObject>
 #include <QJsonArray>
 
-#include "Parameters/CommandType.h"
-#include "Parameters/AbstractParameters.h"
+#include "CommandType.h"
+#include "AbstractParameters.h"
 
 class GetAccountByIdParameters : public AbstractParameters
 {
 public:
-	GetAccountByIdParameters();
+	GetAccountByIdParameters() = default;
 
 public:
 	int Token;
