@@ -6,9 +6,15 @@
 
 #include "CommandType.h"
 #include "AbstractParameters.h"
+#include "IJsonSerializable.h"
 #include "LoginParameters.h"
 #include "GetAccountByIdParameters.h"
-#include "IJsonSerializable.h"
+#include "CreateDialogParameters.h"
+#include "GetDialogByIdParameters.h"
+#include "RegisterParameters.h"
+#include "SendMessageParameters.h"
+#include "GetMessagesParameters.h"
+#include "GetMessageLongPoolParameters.h"
 
 class Query : public IJsonSerializable
 {

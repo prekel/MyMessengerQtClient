@@ -9,6 +9,10 @@
 #include <Responses/LoginResponse.h>
 #include <Parameters/GetAccountByIdParameters.h>
 #include <Responses/GetAccountByIdResponse.h>
+#include <Parameters/GetMessagesParameters.h>
+#include <Responses/GetMessagesResponse.h>
+#include <Parameters/SendMessageParameters.h>
+#include <Responses/SendMessageResponse.h>
 
 #include <IJsonSerializable.h>
 
@@ -120,6 +124,55 @@ void MainWindow::on_pushButton_gabid_clicked()
 	auto resp = client.Sample1(query);
 
 	GetAccountByIdResponse lresp;
+	lresp.FromJsonString(resp);
+
+	delete m_JsonModel;
+	m_JsonModel = new QJsonModel();
+	ui->treeView->setModel(m_JsonModel);
+	m_JsonModel->loadJson(resp.toUtf8());
+}
+
+void MainWindow::on_pushButton_getmessages_clicked()
+{
+	auto client = TcpClient();
+	client.Connect(ui->lineEdit_serverip->text(), ui->lineEdit_serverport->text().toInt());
+
+	GetMessagesParameters p;
+	p.DialogId = ui->lineEdit_dialogid->text().toInt();
+	p.Token = ui->lineEdit_token->text();
+	p.CommandName = CommandType::GetMessages;
+	Query q;
+	q.Config = &p;
+
+	auto query = q.ToJsonString();
+	auto resp = client.Sample1(query);
+
+	GetMessagesResponse lresp;
+	lresp.FromJsonString(resp);
+
+	delete m_JsonModel;
+	m_JsonModel = new QJsonModel();
+	ui->treeView->setModel(m_JsonModel);
+	m_JsonModel->loadJson(resp.toUtf8());
+}
+
+void MainWindow::on_pushButton_sendmessage_clicked()
+{
+	auto client = TcpClient();
+	client.Connect(ui->lineEdit_serverip->text(), ui->lineEdit_serverport->text().toInt());
+
+	SendMessageParameters p;
+	p.DialogId = ui->lineEdit_dialogid->text().toInt();
+	p.Token = ui->lineEdit_token->text();
+	p.Text = ui->lineEdit_text->text();
+	p.CommandName = CommandType::SendMessage;
+	Query q;
+	q.Config = &p;
+
+	auto query = q.ToJsonString();
+	auto resp = client.Sample1(query);
+
+	SendMessageResponse lresp;
 	lresp.FromJsonString(resp);
 
 	delete m_JsonModel;

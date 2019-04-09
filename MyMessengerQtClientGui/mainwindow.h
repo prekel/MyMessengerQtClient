@@ -26,6 +26,12 @@ private slots:
 
 	void on_pushButton_gabid_clicked();
 
+	void on_pushButton_getmessages_clicked();
+
+	void on_pushButton_sendmessage_clicked();
+
+	void on_pushButton_gdbid_clicked();
+
 private:
 	Ui::MainWindow *ui;
 

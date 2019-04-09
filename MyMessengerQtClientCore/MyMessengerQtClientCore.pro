@@ -51,7 +51,6 @@ HEADERS += \
     Parameters/AbstractParameters.h \
     Parameters/CommandType.h \
     Parameters/CreateDialogParameters.h \
-    Parameters/DialogSessionParameters.h \
     Parameters/GetAccountByIdParameters.h \
     Parameters/GetDialogByIdParameters.h \
     Parameters/GetMessageLongPoolParameters.h \
@@ -96,7 +95,6 @@ SOURCES += \
     Responses/SendMessageResponse.cpp \
     Parameters/AbstractParameters.cpp \
     Parameters/CreateDialogParameters.cpp \
-    Parameters/DialogSessionParameters.cpp \
     Parameters/GetAccountByIdParameters.cpp \
     Parameters/GetDialogByIdParameters.cpp \
     Parameters/GetMessageLongPoolParameters.cpp \
