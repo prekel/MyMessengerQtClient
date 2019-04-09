@@ -4,7 +4,7 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock-matchers.h>
 
-#include "Account.h"
+#include <Entities/Account.h>
 
 TEST(AccountTests, Test1)
 {

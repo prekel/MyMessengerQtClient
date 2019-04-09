@@ -5,7 +5,7 @@
 
 #include "AbstractResponse.h"
 #include "ResponseCode.h"
-#include "Account.h"
+#include "Entities/Account.h"
 
 class GetAccountByIdResponse : public AbstractResponse
 {

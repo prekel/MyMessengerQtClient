@@ -2,7 +2,7 @@
 #include <QString>
 
 #include <tcpclient.h>
-#include <Account.h>
+#include <Entities/Account.h>
 
 #include <Parameters/Query.h>
 #include <Parameters/LoginParameters.h>

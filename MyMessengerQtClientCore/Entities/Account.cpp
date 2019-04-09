@@ -2,7 +2,7 @@
 
 Account::Account()
 {
-	AccountId = 3;
+	AccountId = 0;
 }
 
 void Account::read(const QJsonObject& json)

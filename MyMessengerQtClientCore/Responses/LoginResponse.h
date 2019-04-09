@@ -3,7 +3,7 @@
 #include <QString>
 
 #include "AbstractResponse.h"
-#include "Account.h"
+#include "Entities/Account.h"
 
 class LoginResponse : public AbstractResponse
 {
