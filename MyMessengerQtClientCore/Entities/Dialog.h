@@ -11,7 +11,7 @@
 class Dialog : public IJsonSerializable
 {
 public:
-	Dialog();
+	Dialog() = default;
 
 	void read(const QJsonObject &json) override;
 	void write(QJsonObject &json) const override;

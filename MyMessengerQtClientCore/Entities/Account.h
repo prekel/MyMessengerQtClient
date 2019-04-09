@@ -12,7 +12,7 @@
 class Account : public IJsonSerializable
 {
 public:
-	Account();
+	Account() = default;
 
 	//void SetAccountId(int id);
 	//int GetAccountId();

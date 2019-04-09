@@ -1,11 +1,5 @@
 #include "Dialog.h"
 
-Dialog::Dialog()
-{
-	DialogId = 0;
-}
-
-
 void Dialog::read(const QJsonObject& json)
 {
 	DialogId = json["DialogId"].toInt();

@@ -37,7 +37,17 @@ HEADERS += \
     IJsonSerializable.h \
     Iso8601Time.h \
     JsonConvert.h \
-    Entities/Message.h
+    Entities/Message.h \
+    Responses/AbstractResponse.h \
+    Responses/CreateDialogResponse.h \
+    Responses/GetAccountByIdResponse.h \
+    Responses/GetDialogByIdResponse.h \
+    Responses/GetMessageLongPoolResponse.h \
+    Responses/GetMessagesResponse.h \
+    Responses/LoginResponse.h \
+    Responses/RegisterResponse.h \
+    Responses/ResponseCode.h \
+    Responses/SendMessageResponse.h
 
 SOURCES += \
     Parameters/AbstractParameters.cpp \
@@ -62,7 +72,16 @@ SOURCES += \
     IJsonSerializable.cpp \
     Iso8601Time.cpp \
     JsonConvert.cpp \
-    Entities/Message.cpp
+    Entities/Message.cpp \
+    Responses/AbstractResponse.cpp \
+    Responses/CreateDialogResponse.cpp \
+    Responses/GetAccountByIdResponse.cpp \
+    Responses/GetDialogByIdResponse.cpp \
+    Responses/GetMessageLongPoolResponse.cpp \
+    Responses/GetMessagesResponse.cpp \
+    Responses/LoginResponse.cpp \
+    Responses/RegisterResponse.cpp \
+    Responses/SendMessageResponse.cpp
 
 unix {
     target.path = /usr/lib

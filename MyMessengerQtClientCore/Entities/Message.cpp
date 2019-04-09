@@ -1,10 +1,5 @@
 #include "Message.h"
 
-Message::Message()
-{
-	MessageId = 0;
-}
-
 void Message::read(const QJsonObject& json)
 {
 	MessageId = json["MessageId"].toInt();

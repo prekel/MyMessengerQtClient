@@ -1,10 +1,5 @@
 #include "Account.h"
 
-Account::Account()
-{
-	AccountId = 0;
-}
-
 void Account::read(const QJsonObject& json)
 {
 	AccountId = json["AccountId"].toInt();

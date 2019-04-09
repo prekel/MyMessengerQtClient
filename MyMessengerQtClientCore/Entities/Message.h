@@ -11,7 +11,7 @@
 class Message : public IJsonSerializable
 {
 public:
-	Message();
+	Message() = default;
 
 	void read(const QJsonObject &json) override;
 	void write(QJsonObject &json) const override;
