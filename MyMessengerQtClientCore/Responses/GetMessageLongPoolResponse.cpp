@@ -1,25 +1,17 @@
-#include "LoginResponse.h"
+#include "GetMessageLongPoolResponse.h"
 
-//LoginResponse::LoginResponse()
-//{
-//}
-
-void LoginResponse::read(const QJsonObject& json)
+void GetMessageLongPoolResponse::read(const QJsonObject& json)
 {
 	Code = static_cast<ResponseCode>(json["Code"].toInt());
 
-	Token = json["Token"].toString();
-
-	Account.read(json["Account"].toObject());
+	Content.read(json["Content"].toObject());
 }
 
-void LoginResponse::write(QJsonObject& json) const
+void GetMessageLongPoolResponse::write(QJsonObject& json) const
 {
 	json["Code"] = Code;
 
-	json["Token"] = Token;
-
 	QJsonObject ob;
-	Account.write(ob);
-	json["Account"] = ob;
+	Content.write(ob);
+	json["Content"] = ob;
 }

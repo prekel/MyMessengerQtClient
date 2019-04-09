@@ -3,15 +3,14 @@
 #include <QString>
 
 #include "AbstractResponse.h"
-#include "Entities/Account.h"
+#include "Entities/Dialog.h"
 
-class LoginResponse : public AbstractResponse
+class GetDialogByIdResponse : public AbstractResponse
 {
 public:
-	LoginResponse() = default;
+	GetDialogByIdResponse() = default;
 
-	QString Token;
-	Account Account;
+	Dialog Dialog;
 
 	void read(const QJsonObject& json) override;
 	void write(QJsonObject& json) const override;

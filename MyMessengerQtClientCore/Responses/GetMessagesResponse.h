@@ -1,17 +1,17 @@
 #pragma once
 
 #include <QString>
+#include <QVector>
 
 #include "AbstractResponse.h"
-#include "Entities/Account.h"
+#include "Entities/Message.h"
 
-class LoginResponse : public AbstractResponse
+class GetMessagesResponse : public AbstractResponse
 {
 public:
-	LoginResponse() = default;
+	GetMessagesResponse() = default;
 
-	QString Token;
-	Account Account;
+	QVector<Message> Content;
 
 	void read(const QJsonObject& json) override;
 	void write(QJsonObject& json) const override;

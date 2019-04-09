@@ -47,7 +47,19 @@ HEADERS += \
     Responses/LoginResponse.h \
     Responses/RegisterResponse.h \
     Responses/ResponseCode.h \
-    Responses/SendMessageResponse.h
+    Responses/SendMessageResponse.h \
+    Parameters/AbstractParameters.h \
+    Parameters/CommandType.h \
+    Parameters/CreateDialogParameters.h \
+    Parameters/DialogSessionParameters.h \
+    Parameters/GetAccountByIdParameters.h \
+    Parameters/GetDialogByIdParameters.h \
+    Parameters/GetMessageLongPoolParameters.h \
+    Parameters/GetMessagesParameters.h \
+    Parameters/LoginParameters.h \
+    Parameters/Query.h \
+    Parameters/RegisterParameters.h \
+    Parameters/SendMessageParameters.h
 
 SOURCES += \
     Parameters/AbstractParameters.cpp \
@@ -81,7 +93,18 @@ SOURCES += \
     Responses/GetMessagesResponse.cpp \
     Responses/LoginResponse.cpp \
     Responses/RegisterResponse.cpp \
-    Responses/SendMessageResponse.cpp
+    Responses/SendMessageResponse.cpp \
+    Parameters/AbstractParameters.cpp \
+    Parameters/CreateDialogParameters.cpp \
+    Parameters/DialogSessionParameters.cpp \
+    Parameters/GetAccountByIdParameters.cpp \
+    Parameters/GetDialogByIdParameters.cpp \
+    Parameters/GetMessageLongPoolParameters.cpp \
+    Parameters/GetMessagesParameters.cpp \
+    Parameters/LoginParameters.cpp \
+    Parameters/Query.cpp \
+    Parameters/RegisterParameters.cpp \
+    Parameters/SendMessageParameters.cpp
 
 unix {
     target.path = /usr/lib

@@ -3,15 +3,14 @@
 #include <QString>
 
 #include "AbstractResponse.h"
-#include "Entities/Account.h"
+#include "Entities/Message.h"
 
-class LoginResponse : public AbstractResponse
+class GetMessageLongPoolResponse : public AbstractResponse
 {
 public:
-	LoginResponse() = default;
+	GetMessageLongPoolResponse() = default;
 
-	QString Token;
-	Account Account;
+	Message Content;
 
 	void read(const QJsonObject& json) override;
 	void write(QJsonObject& json) const override;
