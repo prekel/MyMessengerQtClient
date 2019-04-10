@@ -2,7 +2,7 @@
 
 #include <QJsonObject>
 #include <QJsonArray>
-#include <Qtime>
+#include <QTime>
 
 #include "AbstractParameters.h"
 

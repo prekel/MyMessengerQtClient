@@ -11,7 +11,7 @@ public:
 	LoginResponse() = default;
 
 	QString Token;
-	Account Account;
+	Account m_Account;
 
 	void read(const QJsonObject& json) override;
 	void write(QJsonObject& json) const override;

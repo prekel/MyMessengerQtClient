@@ -180,3 +180,8 @@ void MainWindow::on_pushButton_sendmessage_clicked()
 	ui->treeView->setModel(m_JsonModel);
 	m_JsonModel->loadJson(resp.toUtf8());
 }
+
+void MainWindow::on_pushButton_gdbid_clicked()
+{
+
+}

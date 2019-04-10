@@ -12,7 +12,7 @@ class GetAccountByIdResponse : public AbstractResponse
 public:
 	GetAccountByIdResponse() = default;
 
-	Account Account;
+	Account _Account;
 
 	void read(const QJsonObject& json) override;
 	void write(QJsonObject& json) const override;

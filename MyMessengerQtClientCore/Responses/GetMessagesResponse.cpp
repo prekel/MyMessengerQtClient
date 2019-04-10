@@ -10,7 +10,7 @@ void GetMessagesResponse::read(const QJsonObject& json)
 	{
 		auto ob = i.toObject();
 		auto m = Message();
-		m.write(ob);
+		m.read(ob);
 		Content.append(m);
 	}
 }

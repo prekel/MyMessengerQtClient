@@ -4,7 +4,7 @@ void GetDialogByIdResponse::read(const QJsonObject& json)
 {
 	Code = static_cast<ResponseCode>(json["Code"].toInt());
 
-	Dialog.read(json["Dialog"].toObject());
+	m_Dialog.read(json["Dialog"].toObject());
 }
 
 void GetDialogByIdResponse::write(QJsonObject& json) const
@@ -12,6 +12,6 @@ void GetDialogByIdResponse::write(QJsonObject& json) const
 	json["Code"] = Code;
 
 	QJsonObject ob;
-	Dialog.write(ob);
+	m_Dialog.write(ob);
 	json["Dialog"] = ob;
 }
