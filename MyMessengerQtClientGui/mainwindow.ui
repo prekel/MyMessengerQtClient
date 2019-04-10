@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>MyMessengerQtClient</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -201,6 +201,16 @@
        <widget class="QPushButton" name="pushButton">
         <property name="text">
          <string>PushButton</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLCDNumber" name="lcdNumber">
+        <property name="value" stdset="0">
+         <double>-1.000000000000000</double>
+        </property>
+        <property name="intValue" stdset="0">
+         <number>-1</number>
         </property>
        </widget>
       </item>

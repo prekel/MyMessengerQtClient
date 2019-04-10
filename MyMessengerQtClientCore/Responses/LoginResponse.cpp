@@ -2,7 +2,8 @@
 
 void LoginResponse::read(const QJsonObject& json)
 {
-	Code = static_cast<ResponseCode>(json["Code"].toInt());
+	AbstractResponse::read(json);
+	//Code = static_cast<ResponseCode>(json["Code"].toInt());
 
 	Token = json["Token"].toString();
 
@@ -11,7 +12,8 @@ void LoginResponse::read(const QJsonObject& json)
 
 void LoginResponse::write(QJsonObject& json) const
 {
-	json["Code"] = Code;
+	AbstractResponse::write(json);
+	//json["Code"] = Code;
 
 	json["Token"] = Token;
 

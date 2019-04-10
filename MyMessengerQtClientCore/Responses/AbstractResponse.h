@@ -14,6 +14,6 @@ public:
 
 	ResponseCode Code;
 
-	//virtual void read(const QJsonObject& json) = 0;
-	//virtual void write(QJsonObject& json) const = 0;
+	void read(const QJsonObject& json) override;
+	void write(QJsonObject& json) const override;
 };

@@ -13,6 +13,8 @@
 #include <Responses/GetMessagesResponse.h>
 #include <Parameters/SendMessageParameters.h>
 #include <Responses/SendMessageResponse.h>
+#include <Parameters/GetDialogByIdParameters.h>
+#include <Responses/GetDialogByIdResponse.h>
 
 #include <IJsonSerializable.h>
 
@@ -106,6 +108,8 @@ void MainWindow::on_pushButton_login_clicked()
 	m_JsonModel = new QJsonModel();
 	ui->treeView->setModel(m_JsonModel);
 	m_JsonModel->loadJson(resp.toUtf8());
+
+	ui->lcdNumber->display(lresp.Code);
 }
 
 void MainWindow::on_pushButton_gabid_clicked()
@@ -130,6 +134,8 @@ void MainWindow::on_pushButton_gabid_clicked()
 	m_JsonModel = new QJsonModel();
 	ui->treeView->setModel(m_JsonModel);
 	m_JsonModel->loadJson(resp.toUtf8());
+
+	ui->lcdNumber->display(lresp.Code);
 }
 
 void MainWindow::on_pushButton_getmessages_clicked()
@@ -154,6 +160,8 @@ void MainWindow::on_pushButton_getmessages_clicked()
 	m_JsonModel = new QJsonModel();
 	ui->treeView->setModel(m_JsonModel);
 	m_JsonModel->loadJson(resp.toUtf8());
+
+	ui->lcdNumber->display(lresp.Code);
 }
 
 void MainWindow::on_pushButton_sendmessage_clicked()
@@ -179,9 +187,32 @@ void MainWindow::on_pushButton_sendmessage_clicked()
 	m_JsonModel = new QJsonModel();
 	ui->treeView->setModel(m_JsonModel);
 	m_JsonModel->loadJson(resp.toUtf8());
+
+	ui->lcdNumber->display(lresp.Code);
 }
 
 void MainWindow::on_pushButton_gdbid_clicked()
 {
+	auto client = TcpClient();
+	client.Connect(ui->lineEdit_serverip->text(), ui->lineEdit_serverport->text().toInt());
 
+	GetDialogByIdParameters p;
+	p.DialogId = ui->lineEdit_dialogid->text().toInt();
+	p.Token = ui->lineEdit_token->text();
+	p.CommandName = CommandType::GetDialogById;
+	Query q;
+	q.Config = &p;
+
+	auto query = q.ToJsonString();
+	auto resp = client.Sample1(query);
+
+	GetDialogByIdResponse lresp;
+	lresp.FromJsonString(resp);
+
+	delete m_JsonModel;
+	m_JsonModel = new QJsonModel();
+	ui->treeView->setModel(m_JsonModel);
+	m_JsonModel->loadJson(resp.toUtf8());
+
+	ui->lcdNumber->display(lresp.Code);
 }

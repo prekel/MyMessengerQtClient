@@ -2,14 +2,16 @@
 
 void CreateDialogResponse::read(const QJsonObject& json)
 {
-	Code = static_cast<ResponseCode>(json["Code"].toInt());
+	AbstractResponse::read(json);
+	//Code = static_cast<ResponseCode>(json["Code"].toInt());
 
 	DialogId = json["DialogId"].toInt();
 }
 
 void CreateDialogResponse::write(QJsonObject& json) const
 {
-	json["Code"] = Code;
+	AbstractResponse::write(json);
+	//json["Code"] = Code;
 
 	json["DialogId"] = DialogId;
 }
