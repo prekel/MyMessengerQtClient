@@ -19,7 +19,7 @@
 #include <IJsonSerializable.h>
 
 #include "MainWindow.h"
-#include "ui_mainwindow.h"
+#include "ui_MainWindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent),
@@ -215,4 +215,11 @@ void MainWindow::on_pushButton_gdbid_clicked()
 	m_JsonModel->loadJson(resp.toUtf8());
 
 	ui->lcdNumber->display(lresp.Code);
+}
+
+void MainWindow::on_pushButton_openDialog_clicked()
+{
+	//delete dialog;
+	auto dialog1 = new DialogWindow(this);
+	dialog1->show();
 }

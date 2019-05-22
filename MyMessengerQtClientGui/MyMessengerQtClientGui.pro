@@ -13,14 +13,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     ../QJsonModel/qjsonmodel.cpp \
-    MainWindow.cpp
+    MainWindow.cpp \
+    DialogWindow.cpp
 
 HEADERS += \
     ../QJsonModel/qjsonmodel.h \
-    MainWindow.h
+    MainWindow.h \
+    DialogWindow.h
 
 FORMS += \
-    MainWindow.ui
+    MainWindow.ui \
+    DialogWindow.ui
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../MyMessengerQtClientCore/release/ -lMyMessengerQtClientCore
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../MyMessengerQtClientCore/debug/ -lMyMessengerQtClientCore
