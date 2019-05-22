@@ -18,7 +18,7 @@
 
 #include <IJsonSerializable.h>
 
-#include "mainwindow.h"
+#include "MainWindow.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :

@@ -12,15 +12,15 @@ CONFIG += c++14
 DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
-    mainwindow.cpp \
-    ../QJsonModel/qjsonmodel.cpp
+    ../QJsonModel/qjsonmodel.cpp \
+    MainWindow.cpp
 
 HEADERS += \
-    mainwindow.h \
-    ../QJsonModel/qjsonmodel.h
+    ../QJsonModel/qjsonmodel.h \
+    MainWindow.h
 
 FORMS += \
-    mainwindow.ui
+    MainWindow.ui
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../MyMessengerQtClientCore/release/ -lMyMessengerQtClientCore
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../MyMessengerQtClientCore/debug/ -lMyMessengerQtClientCore
