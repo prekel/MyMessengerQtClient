@@ -1,7 +1,7 @@
 #include <QJsonDocument>
 #include <QString>
 
-#include <tcpclient.h>
+#include <TcpClient.h>
 #include <Entities/Account.h>
 
 #include <Parameters/Query.h>

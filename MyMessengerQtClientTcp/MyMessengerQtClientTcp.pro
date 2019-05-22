@@ -12,10 +12,10 @@ CONFIG += c++14
 DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
-    *.cpp
+    TcpClient.cpp
 
 HEADERS += \
-    *.h
+    TcpClient.h
 
 unix {
     target.path = /usr/lib

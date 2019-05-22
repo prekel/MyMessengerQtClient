@@ -1,4 +1,4 @@
-#include "tcpclient.h"
+#include "TcpClient.h"
 
 TcpClient::TcpClient()
 {
@@ -72,16 +72,15 @@ QString TcpClient::Sample1(QString input)
 		qDebug() << "Connected!";
 
 		m_socket->write(input.toUtf8());
-		m_socket->waitForBytesWritten(1000);
-		m_socket->waitForReadyRead(3000);
+		//m_socket->waitForBytesWritten(1000);
+		//m_socket->waitForReadyRead(3000);
+		m_socket->waitForBytesWritten();
+		m_socket->waitForReadyRead();
 
 		qDebug() << "Reading: " << m_socket->bytesAvailable();
 
-		// get the data
 		auto output = m_socket->readAll();
-		//qDebug() << ;
 
-		// close the connection
 		m_socket->close();
 
 		return QString::fromUtf8(output);
