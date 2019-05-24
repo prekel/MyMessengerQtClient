@@ -1,5 +1,7 @@
 #include <QJsonDocument>
 #include <QString>
+#include <QFuture>
+#include <QtConcurrent>
 
 #include <TcpClient.h>
 #include <Entities/Account.h>
@@ -67,21 +69,53 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_pushButton_2_clicked()
 {
-	Account a;
-	a.AccountId = 4;
-	a.RegistrationDateTime = QDateTime::currentDateTime();
-	a.LoginDateTime = QDateTime::currentDateTime().addDays(2);
-	a.DialogsIds.append(2);
-	a.DialogsIds.append(3);
-	a.Nickname = "User4";
+	//Account a;
+	//a.AccountId = 4;
+	//a.RegistrationDateTime = QDateTime::currentDateTime();
+	//a.LoginDateTime = QDateTime::currentDateTime().addDays(2);
+	//a.DialogsIds.append(2);
+	//a.DialogsIds.append(3);
+	//a.Nickname = "User4";
 
-	auto s = a.ToJsonString();
+	//auto s = a.ToJsonString();
 
-	qDebug() << s;
+	//qDebug() << s;
 
 	//Account b = FromJson(s);
 
 	//auto a1 = Account();
+
+	QFuture<QString> future = QtConcurrent::run([=]() {
+		auto client = TcpClient();
+		client.Connect(ui->lineEdit_serverip->text(), ui->lineEdit_serverport->text().toInt());
+
+		LoginParameters p;
+		p.Nickname = ui->lineEdit_login->text();
+		p.Password = ui->lineEdit_password->text();
+		p.CommandName = CommandType::Login;
+		Query q;
+		q.Config = &p;
+
+		auto s1 = q.ToJsonString();
+		auto resp = client.Sample1(s1);
+
+
+		return resp;
+	});
+
+	auto resp = future.result();
+
+	LoginResponse lresp;
+	lresp.FromJsonString(resp);
+
+	ui->lineEdit_token->setText(lresp.Token);
+
+	delete m_JsonModel;
+	m_JsonModel = new QJsonModel();
+	ui->treeView->setModel(m_JsonModel);
+	m_JsonModel->loadJson(resp.toUtf8());
+
+	ui->lcdNumber->display(lresp.Code);
 }
 
 void MainWindow::on_pushButton_login_clicked()
@@ -219,7 +253,16 @@ void MainWindow::on_pushButton_gdbid_clicked()
 
 void MainWindow::on_pushButton_openDialog_clicked()
 {
-	//delete dialog;
+	QFuture<int> future = QtConcurrent::run([=]() {
+		for (auto i = 0; i < INT_MAX / 3; i++)
+		{
+			if (i % 1000000 == 0)
+			{
+				qDebug() << i;
+			}
+		}
+		return 1;
+	});
 	auto dialog1 = new DialogWindow(this);
 	dialog1->show();
 }
