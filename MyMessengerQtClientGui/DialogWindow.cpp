@@ -17,6 +17,8 @@
 #include <Responses/SendMessageResponse.h>
 #include <Parameters/GetDialogByIdParameters.h>
 #include <Responses/GetDialogByIdResponse.h>
+#include <Parameters/GetMessageLongPoolParameters.h>
+#include <Responses/GetMessageLongPoolResponse.h>
 
 #include <IJsonSerializable.h>
 
@@ -71,7 +73,14 @@ void DialogWindow::update1(QString i)
 
 void DialogWindow::update2(QString i)
 {
-    ui->textBrowser->append(i);
+    GetMessageLongPoolResponse lresp;
+    lresp.FromJsonString(i);
+
+    auto name = QString::number(lresp.Content.AuthorId);
+    auto text = lresp.Content.Text;
+    ui->textBrowser->append(name + ": " + text);
+
+    on_pushButton_2_clicked();
 }
 
 void DialogWindow::on_pushButton_clicked()
