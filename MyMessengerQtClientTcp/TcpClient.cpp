@@ -2,12 +2,12 @@
 
 TcpClient::TcpClient()
 {
-	m_socket = new QTcpSocket();
+    //m_socket = new QTcpSocket();
 }
 
 TcpClient::~TcpClient()
 {
-	delete m_socket;
+    delete m_socket;
 }
 
 void TcpClient::Connect(QString host, qint16 port)
@@ -31,6 +31,49 @@ void TcpClient::Connect(QString host, qint16 port)
 
 //	return s;
 //}
+
+//void TcpClient::doWork()
+//{
+//    for(int i = 0; i <= 100; i++)
+//    {
+//        emit send(i);
+//        QThread::sleep(1);
+//    }
+//}
+
+void TcpClient::connectToServer(QString host, qint16 port)
+{
+    //delete m_socket;
+    m_socket = new QTcpSocket();
+    m_socket->connectToHost(host, port);
+}
+
+void TcpClient::sendMessage(QString message)
+{
+    if (m_socket->waitForConnected(5000))
+    {
+        qDebug() << "Connected!";
+
+        m_socket->write(message.toUtf8());
+        //m_socket->waitForBytesWritten(1000);
+        //m_socket->waitForReadyRead(3000);
+        m_socket->waitForBytesWritten();
+        m_socket->waitForReadyRead();
+
+        qDebug() << "Reading: " << m_socket->bytesAvailable();
+
+        auto output = m_socket->readAll();
+
+        m_socket->close();
+
+        emit receiveMessage(QString::fromUtf8(output));
+    }
+    else
+    {
+        qDebug() << "Not connected!";
+        //return "";
+    }
+}
 
 void TcpClient::Sample()
 {

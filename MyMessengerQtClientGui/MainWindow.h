@@ -35,6 +35,11 @@ private slots:
 
 	void on_pushButton_openDialog_clicked();
 
+    void update(QString i);
+
+signals:
+    void connectToServer1(QString host, qint16 port);
+    void sendMessage1(QString message);
 private:
 	Ui::MainWindow *ui;
 

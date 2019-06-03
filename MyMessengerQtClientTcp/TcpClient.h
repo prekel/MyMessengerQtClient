@@ -2,20 +2,30 @@
 #define TCPCLIENT_H
 
 #include <QTcpSocket>
-//#include <GetAccountByIdQuery.h>
 #include <QJsonDocument>
+#include <QObject>
+#include <QString>
+#include <QThread>
 
-class TcpClient
+class TcpClient : public QObject
 {
-private:
-	QTcpSocket *m_socket;
+    Q_OBJECT
 public:
-	TcpClient();
+    TcpClient();
 	~TcpClient();
 
-	void Connect(QString host, qint16 port);
-	void Sample();
+    void Connect(QString host, qint16 port);
+    void Sample();
 	QString Sample1(QString input);
+
+public slots:
+    void connectToServer(QString host, qint16 port);
+    void sendMessage(QString message);
+signals:
+    void receiveMessage(QString message);
+
+private:
+    QTcpSocket *m_socket;
 };
 
 #endif // TCPCLIENT_H
