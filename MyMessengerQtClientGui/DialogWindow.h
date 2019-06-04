@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include "ConnectionConfig.h"
+
 namespace Ui {
 class DialogWindow;
 }
@@ -12,12 +14,10 @@ class DialogWindow : public QMainWindow
 	Q_OBJECT
 
 public:
-    explicit DialogWindow(QWidget *parent = nullptr, QString ip = "", int port = 4444, QString token = "1111");
+    explicit DialogWindow(QWidget *parent = nullptr, ConnectionConfig *conf = nullptr);
 	~DialogWindow();
 
-    QString ip;
-    int port;
-    QString token;
+    ConnectionConfig *Conf;
 
 private slots:
     void on_pushButton_clicked();
@@ -28,10 +28,10 @@ private slots:
     void update2(QString i);
 
 signals:
-    void connectToServer1(QString host, qint16 port);
-    void sendMessage1(QString message);
-    void connectToServer2(QString host, qint16 port);
-    void sendMessage2(QString message);
+    //void connectToServer1(QString host, qint16 port);
+    void sendMessage1(QString host, quint16 port, QString message);
+    //void connectToServer2(QString host, qint16 port);
+    void sendMessage2(QString host, quint16 port, QString message);
 
 private:
 	Ui::DialogWindow *ui;

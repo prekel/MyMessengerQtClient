@@ -6,6 +6,8 @@
 #include <TcpClient.h>
 #include <Entities/Account.h>
 
+#include <Responses/ResponseCode.h>
+
 #include <Parameters/Query.h>
 #include <Parameters/LoginParameters.h>
 #include <Responses/LoginResponse.h>
@@ -27,14 +29,13 @@
 #include "DialogWindow.h"
 #include "ui_DialogWindow.h"
 
-DialogWindow::DialogWindow(QWidget *parent, QString ip, int port, QString token) :
+DialogWindow::DialogWindow(QWidget *parent, ConnectionConfig *conf) :
 	QMainWindow(parent),
 	ui(new Ui::DialogWindow)
 {
-	ui->setupUi(this);
-    this->ip = ip;
-    this->port = port;
-    this->token = token;
+    ui->setupUi(this);
+
+    Conf = conf;
 
     QThread *threadSender = new QThread;
     TcpClient *mySender = new TcpClient();
@@ -42,9 +43,7 @@ DialogWindow::DialogWindow(QWidget *parent, QString ip, int port, QString token)
     mySender->moveToThread(threadSender);
 
     connect(mySender, SIGNAL(receiveMessage(QString)), this, SLOT(update1(QString)));
-
-    connect(this, SIGNAL(connectToServer1(QString, qint16)), mySender, SLOT(connectToServer(QString, qint16)), Qt::AutoConnection);
-    connect(this, SIGNAL(sendMessage1(QString)), mySender, SLOT(sendMessage(QString)), Qt::AutoConnection);
+    connect(this, SIGNAL(sendMessage1(QString, quint16, QString)), mySender, SLOT(sendString(QString, quint16, QString)), Qt::AutoConnection);
 
     threadSender->start();
 
@@ -54,9 +53,7 @@ DialogWindow::DialogWindow(QWidget *parent, QString ip, int port, QString token)
     myReceiver->moveToThread(threadReceiver);
 
     connect(myReceiver, SIGNAL(receiveMessage(QString)), this, SLOT(update2(QString)));
-
-    connect(this, SIGNAL(connectToServer2(QString, qint16)), myReceiver, SLOT(connectToServer(QString, qint16)), Qt::AutoConnection);
-    connect(this, SIGNAL(sendMessage2(QString)), myReceiver, SLOT(sendMessage(QString)), Qt::AutoConnection);
+    connect(this, SIGNAL(sendMessage2(QString, quint16, QString)), myReceiver, SLOT(sendString(QString, quint16, QString)), Qt::AutoConnection);
 
     threadReceiver->start();
 }
@@ -76,41 +73,44 @@ void DialogWindow::update2(QString i)
     GetMessageLongPoolResponse lresp;
     lresp.FromJsonString(i);
 
-    auto name = QString::number(lresp.Content.AuthorId);
-    auto text = lresp.Content.Text;
-    ui->textBrowser->append(name + ": " + text);
+    if (lresp.Code == ResponseCode::Ok)
+    {
+        auto name = QString::number(lresp.Content.AuthorId);
+        auto text = lresp.Content.Text;
+        ui->textBrowser->append(name + ": " + text);
+    }
 
     on_pushButton_2_clicked();
 }
 
 void DialogWindow::on_pushButton_clicked()
 {
-    emit connectToServer1(ip, port);
+    //emit connectToServer1(Conf->Host, Conf->Port);
 
     SendMessageParameters p;
     p.Text = ui->plainTextEdit->toPlainText();
-    p.Token = token;
-    p.DialogId = 1;
+    p.Token = Conf->Token;
+    p.DialogId = Conf->DialogId;
     p.CommandName = CommandType::SendMessage;
     Query q;
     q.Config = &p;
 
     auto s1 = q.ToJsonString();
-    emit sendMessage1(s1);
+    emit sendMessage1(Conf->Host, Conf->Port, s1);
 }
 
 void DialogWindow::on_pushButton_2_clicked()
 {
-    emit connectToServer2(ip, port);
+    //emit connectToServer1(Conf->Host, Conf->Port);
 
     GetMessageLongPoolParameters p;
-    p.Token = token;
-    p.TimeSpan = QTime(0,0,25);
+    p.Token = Conf->Token;
+    p.TimeSpan = QTime(0, 0, 25);
     p.DialogId = 1;
     p.CommandName = CommandType::GetMessageLongPool;
     Query q;
     q.Config = &p;
 
     auto s1 = q.ToJsonString();
-    emit sendMessage2(s1);
+    emit sendMessage2(Conf->Host, Conf->Port, s1);
 }

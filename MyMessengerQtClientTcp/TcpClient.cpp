@@ -7,14 +7,14 @@ TcpClient::TcpClient()
 
 TcpClient::~TcpClient()
 {
-    delete m_socket;
+    //delete m_socket;
 }
 
-void TcpClient::Connect(QString host, qint16 port)
-{
+//void TcpClient::Connect(QString host, qint16 port)
+//{
 	//m_socket->connectToHost("51.158.73.185", 20522);
-	m_socket->connectToHost(host, port);
-}
+    //m_socket->connectToHost(host, port);
+//}
 
 //QString ToJson(const GetAccountByIdQuery a)
 //{
@@ -41,30 +41,26 @@ void TcpClient::Connect(QString host, qint16 port)
 //    }
 //}
 
-void TcpClient::connectToServer(QString host, qint16 port)
+void TcpClient::sendString(QString host, quint16 port, QString message)
 {
-    //delete m_socket;
-    m_socket = new QTcpSocket();
-    m_socket->connectToHost(host, port);
-}
+    auto socket = new QTcpSocket();
+    socket->connectToHost(host, port);
 
-void TcpClient::sendMessage(QString message)
-{
-    if (m_socket->waitForConnected(5000))
+    if (socket->waitForConnected(5000))
     {
         qDebug() << "Connected!";
 
-        m_socket->write(message.toUtf8());
+        socket->write(message.toUtf8());
         //m_socket->waitForBytesWritten(1000);
         //m_socket->waitForReadyRead(3000);
-        m_socket->waitForBytesWritten();
-        m_socket->waitForReadyRead();
+        socket->waitForBytesWritten();
+        socket->waitForReadyRead();
 
-        qDebug() << "Reading: " << m_socket->bytesAvailable();
+        qDebug() << "Reading: " << socket->bytesAvailable();
 
-        auto output = m_socket->readAll();
+        auto output = socket->readAll();
 
-        m_socket->close();
+        socket->close();
 
         emit receiveMessage(QString::fromUtf8(output));
     }
@@ -75,62 +71,62 @@ void TcpClient::sendMessage(QString message)
     }
 }
 
-void TcpClient::Sample()
-{
-	//auto q = GetAccountByIdQuery();
-	//q.AccountId = 2;
-	//q.Token = 7881;
-	//q.CommandName = CommandType::GetAccountById;
-	//auto s = ToJson(q);
+//void TcpClient::Sample()
+//{
+//	//auto q = GetAccountByIdQuery();
+//	//q.AccountId = 2;
+//	//q.Token = 7881;
+//	//q.CommandName = CommandType::GetAccountById;
+//	//auto s = ToJson(q);
 
-	if (m_socket->waitForConnected(5000))
-	{
-		qDebug() << "Connected123!";
+//	if (m_socket->waitForConnected(5000))
+//	{
+//		qDebug() << "Connected123!";
 
-		// send
-		//m_socket->write("Hello server\r\n\r\n");
-		m_socket->write("s.toUtf8()");
-		//m_socket->write();
-		m_socket->waitForBytesWritten(1000);
-		m_socket->waitForReadyRead(3000);
+//		// send
+//		//m_socket->write("Hello server\r\n\r\n");
+//		m_socket->write("s.toUtf8()");
+//		//m_socket->write();
+//		m_socket->waitForBytesWritten(1000);
+//		m_socket->waitForReadyRead(3000);
 
-		qDebug() << "Reading: " << m_socket->bytesAvailable();
+//		qDebug() << "Reading: " << m_socket->bytesAvailable();
 
-		// get the data
-		qDebug() << m_socket->readAll();
+//		// get the data
+//		qDebug() << m_socket->readAll();
 
-		// close the connection
-		m_socket->close();
-	}
-	else
-	{
-		qDebug() << "Not connected!";
-	}
-}
+//		// close the connection
+//		m_socket->close();
+//	}
+//	else
+//	{
+//		qDebug() << "Not connected!";
+//	}
+//}
 
-QString TcpClient::Sample1(QString input)
-{
-	if (m_socket->waitForConnected(5000))
-	{
-		qDebug() << "Connected!";
+//QString TcpClient::Sample1(QString input)
+//{
+//	if (m_socket->waitForConnected(5000))
+//	{
+//		qDebug() << "Connected!";
 
-		m_socket->write(input.toUtf8());
-		//m_socket->waitForBytesWritten(1000);
-		//m_socket->waitForReadyRead(3000);
-		m_socket->waitForBytesWritten();
-		m_socket->waitForReadyRead();
+//		m_socket->write(input.toUtf8());
+//		//m_socket->waitForBytesWritten(1000);
+//		//m_socket->waitForReadyRead(3000);
+//		m_socket->waitForBytesWritten();
+//		m_socket->waitForReadyRead();
 
-		qDebug() << "Reading: " << m_socket->bytesAvailable();
+//		qDebug() << "Reading: " << m_socket->bytesAvailable();
 
-		auto output = m_socket->readAll();
+//		auto output = m_socket->readAll();
 
-		m_socket->close();
+//		m_socket->close();
 
-		return QString::fromUtf8(output);
-	}
-	else
-	{
-		qDebug() << "Not connected!";
-		return "";
-	}
-}
+//		return QString::fromUtf8(output);
+//	}
+//	else
+//	{
+//		qDebug() << "Not connected!";
+//		return "";
+//	}
+//}

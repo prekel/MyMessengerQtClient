@@ -20,6 +20,8 @@
 
 #include <IJsonSerializable.h>
 
+#include "ConnectionConfig.h"
+
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 
@@ -128,8 +130,8 @@ void MainWindow::on_pushButton_2_clicked()
 
    //connect(this, SIGNAL(connectToServer1(QString, qint16)), my, SLOT(connectToServer(QString, qint16)), Qt::DirectConnection);
    //connect(this, SIGNAL(sendMessage1(QString)), my, SLOT(sendMessage(QString)), Qt::DirectConnection);
-   connect(this, SIGNAL(connectToServer1(QString, qint16)), my, SLOT(connectToServer(QString, qint16)), Qt::AutoConnection);
-   connect(this, SIGNAL(sendMessage1(QString)), my, SLOT(sendMessage(QString)), Qt::AutoConnection);
+   //connect(this, SIGNAL(connectToServer1(QString, qint16)), my, SLOT(connectToServer(QString, qint16)), Qt::AutoConnection);
+   connect(this, SIGNAL(sendMessage1(QString, quint16, QString)), my, SLOT(sendString(QString, quint16, QString)), Qt::AutoConnection);
 
    //connect(thread, SIGNAL(connectToServer1(QString, qint16)), my, SLOT(ConnectToServer(QString, qint16)));
    //connect(thread, SIGNAL(sendMessage1(QString)), my, SLOT(sendMessage(QString)));
@@ -170,7 +172,7 @@ void MainWindow::on_pushButton_login_clicked()
     //auto client = new TcpClient();
     //client->Connect(ui->lineEdit_serverip->text(), ui->lineEdit_serverport->text().toInt());
 
-    emit connectToServer1(ui->lineEdit_serverip->text(), ui->lineEdit_serverport->text().toInt());
+	//emit connectToServer1(ui->lineEdit_serverip->text(), ui->lineEdit_serverport->text().toInt());
 
     LoginParameters p;
     p.Nickname = ui->lineEdit_login->text();
@@ -180,7 +182,7 @@ void MainWindow::on_pushButton_login_clicked()
     q.Config = &p;
 
     auto s1 = q.ToJsonString();
-    emit sendMessage1(s1);
+	emit sendMessage1(ui->lineEdit_serverip->text(), ui->lineEdit_serverport->text().toInt(), s1);
 //    auto resp = client->Sample1(s1);
 
 //    LoginResponse lresp;
@@ -224,33 +226,33 @@ void MainWindow::on_pushButton_login_clicked()
 
 void MainWindow::on_pushButton_gabid_clicked()
 {
-    auto client = new TcpClient();
-    client->Connect(ui->lineEdit_serverip->text(), ui->lineEdit_serverport->text().toInt());
+//    auto client = new TcpClient();
+//    client->Connect(ui->lineEdit_serverip->text(), ui->lineEdit_serverport->text().toInt());
 
-	GetAccountByIdParameters p;
-	p.AccountId = ui->lineEdit_accountid->text().toInt();
-	p.Token = ui->lineEdit_token->text();
-	p.CommandName = CommandType::GetAccountById;
-	Query q;
-	q.Config = &p;
+//	GetAccountByIdParameters p;
+//	p.AccountId = ui->lineEdit_accountid->text().toInt();
+//	p.Token = ui->lineEdit_token->text();
+//	p.CommandName = CommandType::GetAccountById;
+//	Query q;
+//	q.Config = &p;
 
-	auto query = q.ToJsonString();
-    auto resp = client->Sample1(query);
+//	auto query = q.ToJsonString();
+//    auto resp = client->Sample1(query);
 
-	GetAccountByIdResponse lresp;
-	lresp.FromJsonString(resp);
+//	GetAccountByIdResponse lresp;
+//	lresp.FromJsonString(resp);
 
-	delete m_JsonModel;
-	m_JsonModel = new QJsonModel();
-	ui->treeView->setModel(m_JsonModel);
-	m_JsonModel->loadJson(resp.toUtf8());
+//	delete m_JsonModel;
+//	m_JsonModel = new QJsonModel();
+//	ui->treeView->setModel(m_JsonModel);
+//	m_JsonModel->loadJson(resp.toUtf8());
 
-	ui->lcdNumber->display(lresp.Code);
+//	ui->lcdNumber->display(lresp.Code);
 }
 
 void MainWindow::on_pushButton_getmessages_clicked()
 {
-    emit connectToServer1(ui->lineEdit_serverip->text(), ui->lineEdit_serverport->text().toInt());
+	//emit connectToServer1(ui->lineEdit_serverip->text(), ui->lineEdit_serverport->text().toInt());
 
     GetMessageLongPoolParameters p;
     p.Token = ui->lineEdit_token->text();
@@ -267,8 +269,8 @@ void MainWindow::on_pushButton_getmessages_clicked()
     //Query q;
     //q.Config = &p;
 
-    auto s1 = q.ToJsonString();
-    emit sendMessage1(s1);
+	auto s1 = q.ToJsonString();
+	emit sendMessage1(ui->lineEdit_serverip->text(), ui->lineEdit_serverport->text().toInt(), s1);
 
 //    auto client = new TcpClient();
 //    client->Connect(ui->lineEdit_serverip->text(), ui->lineEdit_serverport->text().toInt());
@@ -296,55 +298,55 @@ void MainWindow::on_pushButton_getmessages_clicked()
 
 void MainWindow::on_pushButton_sendmessage_clicked()
 {
-    auto client = new TcpClient();
-    client->Connect(ui->lineEdit_serverip->text(), ui->lineEdit_serverport->text().toInt());
+//    auto client = new TcpClient();
+//    client->Connect(ui->lineEdit_serverip->text(), ui->lineEdit_serverport->text().toInt());
 
-	SendMessageParameters p;
-	p.DialogId = ui->lineEdit_dialogid->text().toInt();
-	p.Token = ui->lineEdit_token->text();
-	p.Text = ui->lineEdit_text->text();
-	p.CommandName = CommandType::SendMessage;
-	Query q;
-	q.Config = &p;
+//	SendMessageParameters p;
+//	p.DialogId = ui->lineEdit_dialogid->text().toInt();
+//	p.Token = ui->lineEdit_token->text();
+//	p.Text = ui->lineEdit_text->text();
+//	p.CommandName = CommandType::SendMessage;
+//	Query q;
+//	q.Config = &p;
 
-	auto query = q.ToJsonString();
-    auto resp = client->Sample1(query);
+//	auto query = q.ToJsonString();
+//    auto resp = client->Sample1(query);
 
-	SendMessageResponse lresp;
-	lresp.FromJsonString(resp);
+//	SendMessageResponse lresp;
+//	lresp.FromJsonString(resp);
 
-	delete m_JsonModel;
-	m_JsonModel = new QJsonModel();
-	ui->treeView->setModel(m_JsonModel);
-	m_JsonModel->loadJson(resp.toUtf8());
+//	delete m_JsonModel;
+//	m_JsonModel = new QJsonModel();
+//	ui->treeView->setModel(m_JsonModel);
+//	m_JsonModel->loadJson(resp.toUtf8());
 
-	ui->lcdNumber->display(lresp.Code);
+//	ui->lcdNumber->display(lresp.Code);
 }
 
 void MainWindow::on_pushButton_gdbid_clicked()
 {
-    auto client = new TcpClient();
-    client->Connect(ui->lineEdit_serverip->text(), ui->lineEdit_serverport->text().toInt());
+//    auto client = new TcpClient();
+//    client->Connect(ui->lineEdit_serverip->text(), ui->lineEdit_serverport->text().toInt());
 
-	GetDialogByIdParameters p;
-	p.DialogId = ui->lineEdit_dialogid->text().toInt();
-	p.Token = ui->lineEdit_token->text();
-	p.CommandName = CommandType::GetDialogById;
-	Query q;
-	q.Config = &p;
+//	GetDialogByIdParameters p;
+//	p.DialogId = ui->lineEdit_dialogid->text().toInt();
+//	p.Token = ui->lineEdit_token->text();
+//	p.CommandName = CommandType::GetDialogById;
+//	Query q;
+//	q.Config = &p;
 
-	auto query = q.ToJsonString();
-    auto resp = client->Sample1(query);
+//	auto query = q.ToJsonString();
+//    auto resp = client->Sample1(query);
 
-	GetDialogByIdResponse lresp;
-	lresp.FromJsonString(resp);
+//	GetDialogByIdResponse lresp;
+//	lresp.FromJsonString(resp);
 
-	delete m_JsonModel;
-	m_JsonModel = new QJsonModel();
-	ui->treeView->setModel(m_JsonModel);
-	m_JsonModel->loadJson(resp.toUtf8());
+//	delete m_JsonModel;
+//	m_JsonModel = new QJsonModel();
+//	ui->treeView->setModel(m_JsonModel);
+//	m_JsonModel->loadJson(resp.toUtf8());
 
-	ui->lcdNumber->display(lresp.Code);
+//	ui->lcdNumber->display(lresp.Code);
 }
 
 void MainWindow::on_pushButton_openDialog_clicked()
@@ -359,6 +361,11 @@ void MainWindow::on_pushButton_openDialog_clicked()
 //		}
 //		return 1;
 //	});
-    auto dialog1 = new DialogWindow(this, ui->lineEdit_serverip->text(), ui->lineEdit_serverport->text().toInt(), ui->lineEdit_token->text());
+	auto conf = new ConnectionConfig();
+	conf->Host = ui->lineEdit_serverip->text();
+	conf->Port = ui->lineEdit_serverport->text().toInt();
+	conf->Token = ui->lineEdit_token->text();
+	conf->DialogId = ui->lineEdit_dialogid->text().toInt();
+	auto dialog1 = new DialogWindow(this, conf);
 	dialog1->show();
 }

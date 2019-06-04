@@ -14,11 +14,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     ../QJsonModel/qjsonmodel.cpp \
+    ConnectionConfig.cpp \
     MainWindow.cpp \
     DialogWindow.cpp
 
 HEADERS += \
     ../QJsonModel/qjsonmodel.h \
+    ConnectionConfig.h \
     MainWindow.h \
     DialogWindow.h
 

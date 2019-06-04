@@ -14,18 +14,17 @@ public:
     TcpClient();
 	~TcpClient();
 
-    void Connect(QString host, qint16 port);
-    void Sample();
-	QString Sample1(QString input);
+    //void Connect(QString host, qint16 port);
+    //void Sample();
+    //QString Sample1(QString input);
 
 public slots:
-    void connectToServer(QString host, qint16 port);
-    void sendMessage(QString message);
+    void sendString(QString host, quint16 port, QString message);
 signals:
     void receiveMessage(QString message);
 
 private:
-    QTcpSocket *m_socket;
+    //QTcpSocket *m_socket;
 };
 
 #endif // TCPCLIENT_H

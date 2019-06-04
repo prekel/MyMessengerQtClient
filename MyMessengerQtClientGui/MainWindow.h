@@ -38,8 +38,7 @@ private slots:
     void update(QString i);
 
 signals:
-    void connectToServer1(QString host, qint16 port);
-    void sendMessage1(QString message);
+    void sendMessage1(QString host, quint16 port, QString message);
 private:
 	Ui::MainWindow *ui;
 
