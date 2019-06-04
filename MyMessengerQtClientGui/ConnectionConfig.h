@@ -6,12 +6,13 @@
 class ConnectionConfig
 {
 public:
-    ConnectionConfig() = default;
+	ConnectionConfig() = default;
 public:
-    QString Host;
-    qint16 Port;
-    QString Token;
-    int DialogId;
+	QString Host;
+	qint16 Port;
+	QString Token;
+	int DialogId;
+	QString Login;
 };
 
 #endif // CONNECTIONCONFIG_H

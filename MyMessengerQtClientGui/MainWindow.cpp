@@ -29,6 +29,27 @@ MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent),
 	ui(new Ui::MainWindow)
 {
+
+
+	QThread *thread= new QThread;
+	TcpClient *my = new TcpClient();
+	//my->Connect(ui->lineEdit_serverip->text(), ui->lineEdit_serverport->text().toInt());
+
+	my->moveToThread(thread);
+
+	connect(my, SIGNAL(receiveMessage(QString)), this, SLOT(update(QString)));
+	//connect(thread, SIGNAL(started()), my, SLOT(doWork()));
+
+	//connect(this, SIGNAL(connectToServer1(QString, qint16)), my, SLOT(connectToServer(QString, qint16)), Qt::DirectConnection);
+	//connect(this, SIGNAL(sendMessage1(QString)), my, SLOT(sendMessage(QString)), Qt::DirectConnection);
+	//connect(this, SIGNAL(connectToServer1(QString, qint16)), my, SLOT(connectToServer(QString, qint16)), Qt::AutoConnection);
+	connect(this, SIGNAL(sendMessage1(QString, quint16, QString)), my, SLOT(sendString(QString, quint16, QString)), Qt::AutoConnection);
+
+	//connect(thread, SIGNAL(connectToServer1(QString, qint16)), my, SLOT(ConnectToServer(QString, qint16)));
+	//connect(thread, SIGNAL(sendMessage1(QString)), my, SLOT(sendMessage(QString)));
+
+	thread->start();
+
 	ui->setupUi(this);
 }
 
@@ -119,24 +140,24 @@ void MainWindow::on_pushButton_2_clicked()
 
 //	ui->lcdNumber->display(lresp.Code);
 
-   QThread *thread= new QThread;
-   TcpClient *my = new TcpClient();
-   //my->Connect(ui->lineEdit_serverip->text(), ui->lineEdit_serverport->text().toInt());
+//   QThread *thread= new QThread;
+//   TcpClient *my = new TcpClient();
+//   //my->Connect(ui->lineEdit_serverip->text(), ui->lineEdit_serverport->text().toInt());
 
-   my->moveToThread(thread);
+//   my->moveToThread(thread);
 
-   connect(my, SIGNAL(receiveMessage(QString)), this, SLOT(update(QString)));
-   //connect(thread, SIGNAL(started()), my, SLOT(doWork()));
+//   connect(my, SIGNAL(receiveMessage(QString)), this, SLOT(update(QString)));
+//   //connect(thread, SIGNAL(started()), my, SLOT(doWork()));
 
-   //connect(this, SIGNAL(connectToServer1(QString, qint16)), my, SLOT(connectToServer(QString, qint16)), Qt::DirectConnection);
-   //connect(this, SIGNAL(sendMessage1(QString)), my, SLOT(sendMessage(QString)), Qt::DirectConnection);
-   //connect(this, SIGNAL(connectToServer1(QString, qint16)), my, SLOT(connectToServer(QString, qint16)), Qt::AutoConnection);
-   connect(this, SIGNAL(sendMessage1(QString, quint16, QString)), my, SLOT(sendString(QString, quint16, QString)), Qt::AutoConnection);
+//   //connect(this, SIGNAL(connectToServer1(QString, qint16)), my, SLOT(connectToServer(QString, qint16)), Qt::DirectConnection);
+//   //connect(this, SIGNAL(sendMessage1(QString)), my, SLOT(sendMessage(QString)), Qt::DirectConnection);
+//   //connect(this, SIGNAL(connectToServer1(QString, qint16)), my, SLOT(connectToServer(QString, qint16)), Qt::AutoConnection);
+//   connect(this, SIGNAL(sendMessage1(QString, quint16, QString)), my, SLOT(sendString(QString, quint16, QString)), Qt::AutoConnection);
 
-   //connect(thread, SIGNAL(connectToServer1(QString, qint16)), my, SLOT(ConnectToServer(QString, qint16)));
-   //connect(thread, SIGNAL(sendMessage1(QString)), my, SLOT(sendMessage(QString)));
+//   //connect(thread, SIGNAL(connectToServer1(QString, qint16)), my, SLOT(ConnectToServer(QString, qint16)));
+//   //connect(thread, SIGNAL(sendMessage1(QString)), my, SLOT(sendMessage(QString)));
 
-   thread->start();
+//   thread->start();
 }
 
 
@@ -154,10 +175,10 @@ void MainWindow::update(QString x)
     //ui->lineEdit_text->setText(x);
 
     auto resp = x;
-    //LoginResponse lresp;
-    //lresp.FromJsonString(resp);
+	LoginResponse lresp;
+	lresp.FromJsonString(resp);
 
-    //ui->lineEdit_token->setText(lresp.Token);
+	ui->lineEdit_token->setText(lresp.Token);
 
     //delete m_JsonModel;
     m_JsonModel = new QJsonModel();
@@ -366,6 +387,8 @@ void MainWindow::on_pushButton_openDialog_clicked()
 	conf->Port = ui->lineEdit_serverport->text().toInt();
 	conf->Token = ui->lineEdit_token->text();
 	conf->DialogId = ui->lineEdit_dialogid->text().toInt();
+	conf->Login = ui->lineEdit_login->text();
 	auto dialog1 = new DialogWindow(this, conf);
 	dialog1->show();
 }
+

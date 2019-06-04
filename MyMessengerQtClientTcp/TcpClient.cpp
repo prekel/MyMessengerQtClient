@@ -7,13 +7,13 @@ TcpClient::TcpClient()
 
 TcpClient::~TcpClient()
 {
-    //delete m_socket;
+	//delete m_socket;
 }
 
 //void TcpClient::Connect(QString host, qint16 port)
 //{
 	//m_socket->connectToHost("51.158.73.185", 20522);
-    //m_socket->connectToHost(host, port);
+	//m_socket->connectToHost(host, port);
 //}
 
 //QString ToJson(const GetAccountByIdQuery a)
@@ -43,32 +43,32 @@ TcpClient::~TcpClient()
 
 void TcpClient::sendString(QString host, quint16 port, QString message)
 {
-    auto socket = new QTcpSocket();
-    socket->connectToHost(host, port);
+	auto socket = new QTcpSocket();
+	socket->connectToHost(host, port);
 
-    if (socket->waitForConnected(5000))
-    {
-        qDebug() << "Connected!";
+	if (socket->waitForConnected(5000))
+	{
+		//qDebug() << "Connected!";
 
-        socket->write(message.toUtf8());
-        //m_socket->waitForBytesWritten(1000);
-        //m_socket->waitForReadyRead(3000);
-        socket->waitForBytesWritten();
-        socket->waitForReadyRead();
+		socket->write(message.toUtf8());
+		//m_socket->waitForBytesWritten(1000);
+		//m_socket->waitForReadyRead(3000);
+		socket->waitForBytesWritten();
+		socket->waitForReadyRead();
 
-        qDebug() << "Reading: " << socket->bytesAvailable();
+		//qDebug() << "Reading: " << socket->bytesAvailable();
 
-        auto output = socket->readAll();
+		auto output = socket->readAll();
 
-        socket->close();
+		socket->close();
 
-        emit receiveMessage(QString::fromUtf8(output));
-    }
-    else
-    {
-        qDebug() << "Not connected!";
-        //return "";
-    }
+		emit receiveMessage(QString::fromUtf8(output));
+	}
+	else
+	{
+		//qDebug() << "Not connected!";
+		//return "";
+	}
 }
 
 //void TcpClient::Sample()
@@ -130,3 +130,4 @@ void TcpClient::sendString(QString host, quint16 port, QString message)
 //		return "";
 //	}
 //}
+
