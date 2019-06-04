@@ -9,7 +9,7 @@ public:
 	ConnectionConfig() = default;
 public:
 	QString Host;
-	qint16 Port;
+	quint16 Port;
 	QString Token;
 	int DialogId;
 	QString Login;

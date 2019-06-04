@@ -68,7 +68,17 @@ DialogWindow::~DialogWindow()
 
 void DialogWindow::update1(QString i)
 {
+	SendMessageResponse lresp;
+	lresp.FromJsonString(i);
 
+	if (lresp.Code == ResponseCode::Ok)
+	{
+
+	}
+	else
+	{
+		ui->textBrowser->append(" --- Error code : " + QString::number(lresp.Code) + " --- ");
+	}
 }
 
 void DialogWindow::update2(QString i)
@@ -81,16 +91,26 @@ void DialogWindow::update2(QString i)
         auto name = QString::number(lresp.Content.AuthorId);
         auto text = lresp.Content.Text;
         ui->textBrowser->append(name + ": " + text);
-    }
+		on_pushButton_2_clicked();
+	}
+	else if (lresp.Code == ResponseCode::AccessDenied)
+	{
+		ui->textBrowser->append(" --- Access denied --- ");
+	}
+	else if (lresp.Code == ResponseCode::LongPoolTimeSpanExpired)
+	{
+		on_pushButton_2_clicked();
+	}
+	else
+	{
+		ui->textBrowser->append(" --- Error code : " + QString::number(lresp.Code) + " --- ");
+	}
 
-    on_pushButton_2_clicked();
 }
 
 void DialogWindow::on_pushButton_clicked()
 {
-	//emit connectToServer1(Conf->Host, Conf->Port);
-
-    SendMessageParameters p;
+	SendMessageParameters p;
     p.Text = ui->plainTextEdit->toPlainText();
 	p.Token = Conf->Token;
 	p.DialogId = Conf->DialogId;
@@ -104,12 +124,10 @@ void DialogWindow::on_pushButton_clicked()
 
 void DialogWindow::on_pushButton_2_clicked()
 {
-	//emit connectToServer1(Conf->Host, Conf->Port);
-
-    GetMessageLongPoolParameters p;
+	GetMessageLongPoolParameters p;
 	p.Token = Conf->Token;
 	p.TimeSpan = QTime(0, 0, 25);
-    p.DialogId = 1;
+	p.DialogId = Conf->DialogId;
     p.CommandName = CommandType::GetMessageLongPool;
     Query q;
     q.Config = &p;

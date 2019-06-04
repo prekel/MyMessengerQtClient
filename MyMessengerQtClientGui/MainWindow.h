@@ -19,26 +19,17 @@ public:
 	~MainWindow();
 
 private slots:
-	void on_pushButton_clicked();
-
-	void on_pushButton_2_clicked();
-
 	void on_pushButton_login_clicked();
 
-	void on_pushButton_gabid_clicked();
-
-	void on_pushButton_getmessages_clicked();
-
-	void on_pushButton_sendmessage_clicked();
-
-	void on_pushButton_gdbid_clicked();
-
 	void on_pushButton_openDialog_clicked();
+
+	void on_pushButton_register_clicked();
 
     void update(QString i);
 
 signals:
-    void sendMessage1(QString host, quint16 port, QString message);
+	void sendMessage1(QString host, quint16 port, QString message);
+
 private:
 	Ui::MainWindow *ui;
 
