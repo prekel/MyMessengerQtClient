@@ -11,6 +11,7 @@ class GetAccountByIdResponse : public AbstractResponse
 {
 public:
 	GetAccountByIdResponse() = default;
+	~GetAccountByIdResponse() override;
 
 	Account* _Account;
 

@@ -9,6 +9,7 @@ class GetDialogByIdResponse : public AbstractResponse
 {
 public:
 	GetDialogByIdResponse() = default;
+	~GetDialogByIdResponse() override;
 
 	Dialog* m_Dialog;
 

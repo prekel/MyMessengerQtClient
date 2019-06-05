@@ -33,8 +33,6 @@ DialogWindow::DialogWindow(QWidget *parent, ConnectionConfig *conf) :
 	QMainWindow(parent),
 	ui(new Ui::DialogWindow)
 {
-	ui->setupUi(this);
-
 	MembersNicknames = new QMap<int, QString>();
 	Members = new QVector<Account*>();
 
@@ -62,7 +60,6 @@ DialogWindow::DialogWindow(QWidget *parent, ConnectionConfig *conf) :
 	connect(this, SIGNAL(sendGetDialogById(QString, quint16, QString)), mySender2, SLOT(sendString(QString, quint16, QString)), Qt::AutoConnection);
 	threadSender2->start();
 
-
 	QThread *threadReceiver = new QThread;
 	TcpClient *myReceiver = new TcpClient();
 	myReceiver->moveToThread(threadReceiver);
@@ -70,10 +67,21 @@ DialogWindow::DialogWindow(QWidget *parent, ConnectionConfig *conf) :
 	connect(this, SIGNAL(sendGetMessageLongPool(QString, quint16, QString)), myReceiver, SLOT(sendString(QString, quint16, QString)), Qt::AutoConnection);
 	threadReceiver->start();
 	receiveDialogMembers();
+
+
+	ui->setupUi(this);
 }
 
 DialogWindow::~DialogWindow()
 {
+	delete _Dialog;
+	for (auto i = 0; i < Members->count(); i++)
+	{
+		delete Members->value(i);
+	}
+	delete Members;
+	delete MembersNicknames;
+	delete Conf;
 	delete ui;
 }
 
@@ -151,7 +159,6 @@ void DialogWindow::receiveLongPool()
 	emit sendGetMessageLongPool(Conf->Host, Conf->Port, s1);
 }
 
-
 void DialogWindow::callbackGetAccountById(QString i)
 {
 	auto r = new GetAccountByIdResponse();
@@ -159,7 +166,7 @@ void DialogWindow::callbackGetAccountById(QString i)
 
 	if (r->Code == ResponseCode::Ok)
 	{
-		auto a = r->_Account;
+		auto a = new Account(*r->_Account);
 
 		Members->append(a);
 		MembersNicknames->insert(a->AccountId, a->Nickname);
@@ -177,7 +184,7 @@ void DialogWindow::callbackGetAccountById(QString i)
 	{
 		ui->textBrowser->append(" --- Error code : " + QString::number(r->Code) + " --- ");
 	}
-	//delete r;
+	delete r;
 }
 
 void DialogWindow::callbackGetDialogById(QString i)
@@ -187,7 +194,7 @@ void DialogWindow::callbackGetDialogById(QString i)
 
 	if (r->Code == ResponseCode::Ok)
 	{
-		_Dialog = r->m_Dialog;
+		_Dialog = new Dialog(*r->m_Dialog);
 
 		for (auto j : _Dialog->MembersIds)
 		{
@@ -209,7 +216,7 @@ void DialogWindow::callbackGetDialogById(QString i)
 	{
 		ui->textBrowser->append(" --- Error code : " + QString::number(r->Code) + " --- ");
 	}
-	//delete r;
+	delete r;
 }
 
 void DialogWindow::receiveDialogMembers()

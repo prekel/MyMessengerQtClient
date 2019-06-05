@@ -29,6 +29,8 @@ MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent),
 	ui(new Ui::MainWindow)
 {
+	m_JsonModel = new QJsonModel(this);
+
 	QThread *thread= new QThread;
 	TcpClient *my = new TcpClient();
 	my->moveToThread(thread);
@@ -36,11 +38,13 @@ MainWindow::MainWindow(QWidget *parent) :
 	connect(this, SIGNAL(sendLoginRegister(QString, quint16, QString)), my, SLOT(sendString(QString, quint16, QString)), Qt::AutoConnection);
 	thread->start();
 
+
 	ui->setupUi(this);
 }
 
 MainWindow::~MainWindow()
 {
+	delete m_JsonModel;
 	delete ui;
 }
 
@@ -52,7 +56,7 @@ void MainWindow::callbackLoginRegister(QString resp)
 	ui->lineEdit_token->setText(lresp.Token);
 
     //delete m_JsonModel;
-	m_JsonModel = new QJsonModel(this);
+	//m_JsonModel = new QJsonModel(this);
     ui->treeView->setModel(m_JsonModel);
 	m_JsonModel->loadJson(resp.toUtf8());
 }

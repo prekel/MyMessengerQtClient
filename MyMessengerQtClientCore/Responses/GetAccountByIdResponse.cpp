@@ -1,5 +1,10 @@
 #include "GetAccountByIdResponse.h"
 
+GetAccountByIdResponse::~GetAccountByIdResponse()
+{
+	delete _Account;
+}
+
 void GetAccountByIdResponse::read(const QJsonObject& json)
 {
 	Code = static_cast<ResponseCode>(json["Code"].toInt());

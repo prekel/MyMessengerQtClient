@@ -9,6 +9,7 @@ class GetMessageLongPoolResponse : public AbstractResponse
 {
 public:
 	GetMessageLongPoolResponse() = default;
+	~GetMessageLongPoolResponse() override;
 
 	Message* Content;
 

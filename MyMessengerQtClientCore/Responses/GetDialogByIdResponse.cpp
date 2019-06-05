@@ -1,5 +1,10 @@
 #include "GetDialogByIdResponse.h"
 
+GetDialogByIdResponse::~GetDialogByIdResponse()
+{
+	delete m_Dialog;
+}
+
 void GetDialogByIdResponse::read(const QJsonObject& json)
 {
 	Code = static_cast<ResponseCode>(json["Code"].toInt());
