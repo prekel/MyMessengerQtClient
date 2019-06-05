@@ -103,8 +103,8 @@ void DialogWindow::callbackGetMessageLongPool(QString i)
 
 	if (resp.Code == ResponseCode::Ok)
 	{
-		auto name = MembersNicknames->operator[](resp.Content.AuthorId);
-		auto text = resp.Content.Text;
+		auto name = MembersNicknames->value(resp.Content->AuthorId);
+		auto text = resp.Content->Text;
 		ui->textBrowser->append(name + ": " + text);
 		receiveLongPool();
 	}

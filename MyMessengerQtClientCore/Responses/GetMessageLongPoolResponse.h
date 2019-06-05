@@ -10,7 +10,7 @@ class GetMessageLongPoolResponse : public AbstractResponse
 public:
 	GetMessageLongPoolResponse() = default;
 
-	Message Content;
+	Message* Content;
 
 	void read(const QJsonObject& json) override;
 	void write(QJsonObject& json) const override;
