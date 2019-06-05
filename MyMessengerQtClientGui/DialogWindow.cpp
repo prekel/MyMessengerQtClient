@@ -33,10 +33,13 @@ DialogWindow::DialogWindow(QWidget *parent, ConnectionConfig *conf) :
 	QMainWindow(parent),
 	ui(new Ui::DialogWindow)
 {
+	ui->setupUi(this);
+
+
 	MembersNicknames = new QMap<int, QString>();
 	Members = new QVector<Account*>();
 
-	Conf = conf;
+	Conf = new ConnectionConfig(*conf);
 	this->setWindowTitle("DialogId: " + QString::number(Conf->DialogId) + "; Login: " + Conf->Login);
 
 	QThread *threadSender = new QThread;
@@ -67,9 +70,6 @@ DialogWindow::DialogWindow(QWidget *parent, ConnectionConfig *conf) :
 	connect(this, SIGNAL(sendGetMessageLongPool(QString, quint16, QString)), myReceiver, SLOT(sendString(QString, quint16, QString)), Qt::AutoConnection);
 	threadReceiver->start();
 	receiveDialogMembers();
-
-
-	ui->setupUi(this);
 }
 
 DialogWindow::~DialogWindow()

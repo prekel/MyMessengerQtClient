@@ -29,6 +29,9 @@ MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent),
 	ui(new Ui::MainWindow)
 {
+	ui->setupUi(this);
+
+
 	m_JsonModel = new QJsonModel(this);
 
 	QThread *thread= new QThread;
@@ -37,9 +40,6 @@ MainWindow::MainWindow(QWidget *parent) :
 	connect(my, SIGNAL(receiveMessage(QString)), this, SLOT(callbackLoginRegister(QString)));
 	connect(this, SIGNAL(sendLoginRegister(QString, quint16, QString)), my, SLOT(sendString(QString, quint16, QString)), Qt::AutoConnection);
 	thread->start();
-
-
-	ui->setupUi(this);
 }
 
 MainWindow::~MainWindow()
@@ -84,6 +84,7 @@ void MainWindow::on_pushButton_openDialog_clicked()
 	conf->Login = ui->lineEdit_login->text();
 	auto dialog1 = new DialogWindow(this, conf);
 	dialog1->show();
+	delete conf;
 }
 
 void MainWindow::on_pushButton_register_clicked()
