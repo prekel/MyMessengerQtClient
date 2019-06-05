@@ -25,10 +25,10 @@ private slots:
 
 	void on_pushButton_register_clicked();
 
-    void update(QString i);
+	void queryCallback(QString i);
 
 signals:
-	void sendMessage1(QString host, quint16 port, QString message);
+	void sendQuery(QString host, quint16 port, QString message);
 
 private:
 	Ui::MainWindow *ui;

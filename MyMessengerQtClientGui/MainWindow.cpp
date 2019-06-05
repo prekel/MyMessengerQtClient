@@ -34,8 +34,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	my->moveToThread(thread);
 
-	connect(my, SIGNAL(receiveMessage(QString)), this, SLOT(update(QString)));
-	connect(this, SIGNAL(sendMessage1(QString, quint16, QString)), my, SLOT(sendString(QString, quint16, QString)), Qt::AutoConnection);
+	connect(my, SIGNAL(receiveMessage(QString)), this, SLOT(queryCallback(QString)));
+	connect(this, SIGNAL(sendQuery(QString, quint16, QString)), my, SLOT(sendString(QString, quint16, QString)), Qt::AutoConnection);
 
 	thread->start();
 
@@ -47,16 +47,15 @@ MainWindow::~MainWindow()
 	delete ui;
 }
 
-void MainWindow::update(QString x)
+void MainWindow::queryCallback(QString resp)
 {
-	auto resp = x;
 	LoginResponse lresp;
 	lresp.FromJsonString(resp);
 
 	ui->lineEdit_token->setText(lresp.Token);
 
     //delete m_JsonModel;
-    m_JsonModel = new QJsonModel();
+	m_JsonModel = new QJsonModel(this);
     ui->treeView->setModel(m_JsonModel);
 	m_JsonModel->loadJson(resp.toUtf8());
 }
@@ -71,7 +70,7 @@ void MainWindow::on_pushButton_login_clicked()
     q.Config = &p;
 
     auto s1 = q.ToJsonString();
-	emit sendMessage1(ui->lineEdit_serverip->text(), ui->lineEdit_serverport->text().toUShort(), s1);
+	emit sendQuery(ui->lineEdit_serverip->text(), ui->lineEdit_serverport->text().toUShort(), s1);
 }
 
 void MainWindow::on_pushButton_openDialog_clicked()
@@ -96,5 +95,5 @@ void MainWindow::on_pushButton_register_clicked()
 	q.Config = &p;
 
 	auto s1 = q.ToJsonString();
-	emit sendMessage1(ui->lineEdit_serverip->text(), ui->lineEdit_serverport->text().toInt(), s1);
+	emit sendQuery(ui->lineEdit_serverip->text(), ui->lineEdit_serverport->text().toUShort(), s1);
 }

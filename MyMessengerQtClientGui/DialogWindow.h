@@ -17,24 +17,23 @@ public:
     explicit DialogWindow(QWidget *parent = nullptr, ConnectionConfig *conf = nullptr);
 	~DialogWindow();
 
-    ConnectionConfig *Conf;
+	ConnectionConfig *Conf;
 
 private slots:
-    void on_pushButton_clicked();
-
-    void on_pushButton_2_clicked();
-
-    void update1(QString i);
+	void update1(QString i);
     void update2(QString i);
 
+	void on_pushButton_send_clicked();
+
 signals:
-    //void connectToServer1(QString host, qint16 port);
-    void sendMessage1(QString host, quint16 port, QString message);
-    //void connectToServer2(QString host, qint16 port);
+	void sendMessage1(QString host, quint16 port, QString message);
     void sendMessage2(QString host, quint16 port, QString message);
 
 private:
 	Ui::DialogWindow *ui;
+
+	void receiveLongPool();
 };
+
 
 #endif // DIALOGWINDOW_H

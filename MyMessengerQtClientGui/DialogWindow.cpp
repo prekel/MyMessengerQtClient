@@ -58,7 +58,7 @@ DialogWindow::DialogWindow(QWidget *parent, ConnectionConfig *conf) :
 
 	threadReceiver->start();
 
-	on_pushButton_2_clicked();
+	receiveLongPool();
 }
 
 DialogWindow::~DialogWindow()
@@ -68,47 +68,51 @@ DialogWindow::~DialogWindow()
 
 void DialogWindow::update1(QString i)
 {
-	SendMessageResponse lresp;
-	lresp.FromJsonString(i);
+	SendMessageResponse resp;
+	resp.FromJsonString(i);
 
-	if (lresp.Code == ResponseCode::Ok)
+	if (resp.Code == ResponseCode::Ok)
 	{
 
 	}
+	else if (resp.Code == ResponseCode::AccessDenied)
+	{
+		ui->textBrowser->append(" --- Access denied --- ");
+	}
 	else
 	{
-		ui->textBrowser->append(" --- Error code : " + QString::number(lresp.Code) + " --- ");
+		ui->textBrowser->append(" --- Error code : " + QString::number(resp.Code) + " --- ");
 	}
 }
 
 void DialogWindow::update2(QString i)
 {
-    GetMessageLongPoolResponse lresp;
-    lresp.FromJsonString(i);
+	GetMessageLongPoolResponse resp;
+	resp.FromJsonString(i);
 
-    if (lresp.Code == ResponseCode::Ok)
+	if (resp.Code == ResponseCode::Ok)
 	{
-        auto name = QString::number(lresp.Content.AuthorId);
-        auto text = lresp.Content.Text;
+		auto name = QString::number(resp.Content.AuthorId);
+		auto text = resp.Content.Text;
         ui->textBrowser->append(name + ": " + text);
-		on_pushButton_2_clicked();
+		receiveLongPool();
 	}
-	else if (lresp.Code == ResponseCode::AccessDenied)
+	else if (resp.Code == ResponseCode::AccessDenied)
 	{
 		ui->textBrowser->append(" --- Access denied --- ");
 	}
-	else if (lresp.Code == ResponseCode::LongPoolTimeSpanExpired)
+	else if (resp.Code == ResponseCode::LongPoolTimeSpanExpired)
 	{
-		on_pushButton_2_clicked();
+		receiveLongPool();
 	}
 	else
 	{
-		ui->textBrowser->append(" --- Error code : " + QString::number(lresp.Code) + " --- ");
+		ui->textBrowser->append(" --- Error code : " + QString::number(resp.Code) + " --- ");
 	}
 
 }
 
-void DialogWindow::on_pushButton_clicked()
+void DialogWindow::on_pushButton_send_clicked()
 {
 	SendMessageParameters p;
     p.Text = ui->plainTextEdit->toPlainText();
@@ -122,7 +126,7 @@ void DialogWindow::on_pushButton_clicked()
 	emit sendMessage1(Conf->Host, Conf->Port, s1);
 }
 
-void DialogWindow::on_pushButton_2_clicked()
+void DialogWindow::receiveLongPool()
 {
 	GetMessageLongPoolParameters p;
 	p.Token = Conf->Token;
