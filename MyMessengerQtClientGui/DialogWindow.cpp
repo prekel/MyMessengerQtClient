@@ -157,15 +157,27 @@ void DialogWindow::callbackGetAccountById(QString i)
 	auto r = new GetAccountByIdResponse();
 	r->FromJsonString(i);
 
-	auto a = r->_Account;
-
-	Members->append(a);
-	MembersNicknames->insert(a->AccountId, a->Nickname);
-
-	if (Members->count() == _Dialog->MembersIds.count())
+	if (r->Code == ResponseCode::Ok)
 	{
-		receiveLongPool();
+		auto a = r->_Account;
+
+		Members->append(a);
+		MembersNicknames->insert(a->AccountId, a->Nickname);
+
+		if (Members->count() == _Dialog->MembersIds.count())
+		{
+			receiveLongPool();
+		}
 	}
+	else if (r->Code == ResponseCode::AccessDenied)
+	{
+		ui->textBrowser->append(" --- Access denied --- ");
+	}
+	else
+	{
+		ui->textBrowser->append(" --- Error code : " + QString::number(r->Code) + " --- ");
+	}
+	//delete r;
 }
 
 void DialogWindow::callbackGetDialogById(QString i)
@@ -173,19 +185,31 @@ void DialogWindow::callbackGetDialogById(QString i)
 	auto r = new GetDialogByIdResponse();
 	r->FromJsonString(i);
 
-	_Dialog = r->m_Dialog;
-
-	for (auto j : _Dialog->MembersIds)
+	if (r->Code == ResponseCode::Ok)
 	{
-		GetAccountByIdParameters p;
-		p.Token = Conf->Token;
-		p.AccountId = j;
-		p.CommandName = CommandType::GetAccountById;
-		Query q;
-		q.Config = &p;
-		auto s = q.ToJsonString();
-		emit sendGetAccountById(Conf->Host, Conf->Port, s);
+		_Dialog = r->m_Dialog;
+
+		for (auto j : _Dialog->MembersIds)
+		{
+			GetAccountByIdParameters p;
+			p.Token = Conf->Token;
+			p.AccountId = j;
+			p.CommandName = CommandType::GetAccountById;
+			Query q;
+			q.Config = &p;
+			auto s = q.ToJsonString();
+			emit sendGetAccountById(Conf->Host, Conf->Port, s);
+		}
 	}
+	else if (r->Code == ResponseCode::AccessDenied)
+	{
+		ui->textBrowser->append(" --- Access denied --- ");
+	}
+	else
+	{
+		ui->textBrowser->append(" --- Error code : " + QString::number(r->Code) + " --- ");
+	}
+	//delete r;
 }
 
 void DialogWindow::receiveDialogMembers()
@@ -199,3 +223,4 @@ void DialogWindow::receiveDialogMembers()
 	auto s = q.ToJsonString();
 	emit sendGetDialogById(Conf->Host, Conf->Port, s);
 }
+
