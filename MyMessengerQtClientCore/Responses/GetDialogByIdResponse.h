@@ -10,7 +10,7 @@ class GetDialogByIdResponse : public AbstractResponse
 public:
 	GetDialogByIdResponse() = default;
 
-	Dialog m_Dialog;
+	Dialog* m_Dialog;
 
 	void read(const QJsonObject& json) override;
 	void write(QJsonObject& json) const override;

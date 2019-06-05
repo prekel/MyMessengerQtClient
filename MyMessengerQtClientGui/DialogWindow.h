@@ -2,6 +2,10 @@
 #define DIALOGWINDOW_H
 
 #include <QMainWindow>
+#include <QMap>
+
+#include <Entities/Dialog.h>
+#include <Entities/Account.h>
 
 #include "ConnectionConfig.h"
 
@@ -20,19 +24,30 @@ public:
 	ConnectionConfig *Conf;
 
 private slots:
-	void update1(QString i);
-    void update2(QString i);
+	void callbackSendMessage(QString i);
+	void callbackGetMessageLongPool(QString i);
+
+	void callbackGetAccountById(QString i);
+	void callbackGetDialogById(QString i);
 
 	void on_pushButton_send_clicked();
 
 signals:
-	void sendMessage1(QString host, quint16 port, QString message);
-    void sendMessage2(QString host, quint16 port, QString message);
+	void sendSendMessage(QString host, quint16 port, QString message);
+	void sendGetMessageLongPool(QString host, quint16 port, QString message);
+
+	void sendGetAccountById(QString host, quint16 port, QString message);
+	void sendGetDialogById(QString host, quint16 port, QString message);
 
 private:
 	Ui::DialogWindow *ui;
 
 	void receiveLongPool();
+
+	Dialog* _Dialog;
+	QVector<Account*>* Members;
+	QMap<int, QString>* MembersNicknames;
+	void receiveDialogMembers();
 };
 
 
