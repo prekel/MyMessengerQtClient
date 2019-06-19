@@ -64,8 +64,6 @@ void MainWindow::callbackLoginRegister(QString resp)
 
 	ui->lineEdit_token->setText(lresp.Token);
 
-    //delete m_JsonModel;
-	//m_JsonModel = new QJsonModel(this);
     ui->treeView->setModel(m_JsonModel);
 	m_JsonModel->loadJson(resp.toUtf8());
 }
@@ -74,6 +72,8 @@ void MainWindow::callbackCreateDialog(QString resp)
 {
 	CreateDialogResponse lresp;
 	lresp.FromJsonString(resp);
+
+	ui->lineEdit_dialogid->setText(QString::number(lresp.DialogId));
 
 	ui->treeView->setModel(m_JsonModel);
 	m_JsonModel->loadJson(resp.toUtf8());
