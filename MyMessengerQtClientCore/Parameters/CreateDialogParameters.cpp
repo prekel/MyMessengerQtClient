@@ -6,18 +6,18 @@ void CreateDialogParameters::read(const QJsonObject& json)
 
 	Token = json["Token"].toString();
 
-	MembersIds.clear();
+	MembersIds = new QVector<int>();
 	QJsonArray ar = json["MembersIds"].toArray();
 	for (auto i : ar)
 	{
-		MembersIds.append(i.toInt());
+		MembersIds->append(i.toInt());
 	}
 
-	MembersNicknames.clear();
+	MembersNicknames = new QVector<QString>();
 	QJsonArray ar1 = json["MembersNicknames"].toArray();
 	for (auto i : ar1)
 	{
-		MembersNicknames.append(i.toString());
+		MembersNicknames->append(i.toString());
 	}
 }
 
@@ -27,14 +27,14 @@ void CreateDialogParameters::write(QJsonObject& json) const
 	json["Token"] = Token;
 
 	QJsonArray ar;
-	for (auto i : MembersIds)
+	for (auto i : *MembersIds)
 	{
 		ar.append(i);
 	}
 	json["MembersIds"] = ar;
 
 	QJsonArray ar1;
-	for (auto i1 : MembersNicknames)
+	for (auto i1 : *MembersNicknames)
 	{
 		ar1.append(i1);
 	}

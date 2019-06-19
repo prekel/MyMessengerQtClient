@@ -27,8 +27,14 @@ private slots:
 
 	void callbackLoginRegister(QString i);
 
+	void callbackCreateDialog(QString i);
+
+	void on_pushButton_createDialog_clicked();
+
 signals:
 	void sendLoginRegister(QString host, quint16 port, QString message);
+
+	void sendCreateDialog(QString host, quint16 port, QString message);
 
 private:
 	Ui::MainWindow *ui;

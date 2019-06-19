@@ -14,8 +14,8 @@ public:
 
 	QString Token;
 
-	QVector<QString> MembersNicknames;
-	QVector<int> MembersIds;
+	QVector<QString> *MembersNicknames;
+	QVector<int> *MembersIds;
 
 	void read(const QJsonObject& json) override;
 	void write(QJsonObject& json) const override;
