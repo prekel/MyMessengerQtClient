@@ -1,26 +1,21 @@
-TARGET = MyMessengerQtClientTcp
+TARGET = MyMessengerQtClientCoreTests
+
+include(gtest_dependency.pri)
+
+TEMPLATE = app
+CONFIG += console c++11
+CONFIG -= app_bundle
+CONFIG += thread
+#CONFIG -= qt
 
 QT += core
 QT -= gui
-QT += network
-
-TEMPLATE = lib
-
-CONFIG += staticlib
-CONFIG += c++14
-
-DEFINES += QT_DEPRECATED_WARNINGS
-
-SOURCES += \
-    TcpClient.cpp
 
 HEADERS += \
-    TcpClient.h
+    *.h
 
-unix {
-    target.path = /usr/lib
-    INSTALLS += target
-}
+SOURCES += \
+    *.cpp
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../MyMessengerQtClientCore/release/ -lMyMessengerQtClientCore
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../MyMessengerQtClientCore/debug/ -lMyMessengerQtClientCore

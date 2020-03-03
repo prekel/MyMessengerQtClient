@@ -2,6 +2,7 @@ TARGET = MyMessengerQtClientGui
 
 QT += core gui
 QT += network
+QT += concurrent
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -12,13 +13,20 @@ CONFIG += c++14
 DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
-    mainwindow.cpp
+    ../QJsonModel/qjsonmodel.cpp \
+    ConnectionConfig.cpp \
+    MainWindow.cpp \
+    DialogWindow.cpp
 
 HEADERS += \
-    mainwindow.h
+    ../QJsonModel/qjsonmodel.h \
+    ConnectionConfig.h \
+    MainWindow.h \
+    DialogWindow.h
 
 FORMS += \
-    mainwindow.ui
+    MainWindow.ui \
+    DialogWindow.ui
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../MyMessengerQtClientCore/release/ -lMyMessengerQtClientCore
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../MyMessengerQtClientCore/debug/ -lMyMessengerQtClientCore
